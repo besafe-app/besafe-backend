@@ -21,6 +21,6 @@ module.exports.policies = {
   UsersController: {
     check: true,
     sendSMS: true,
-  }
+  },
   '*': ['isAuthorized'],
 };

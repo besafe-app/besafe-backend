@@ -9,7 +9,11 @@ module.exports = {
   list: async (req, res) => {
     try {
       const assesments = await Assesments.find({}).sort('name');
-      res.status(200).json(assesments);
+      if (assesments.length > 0) {
+        return res.status(200).json(assesments);
+      } else {
+        return res.status(204).send();
+      }
     } catch (e) {
       console.error(e);
       res.status(500).send(e);
