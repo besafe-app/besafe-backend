@@ -90,7 +90,7 @@ module.exports = {
     * https://sailsjs.com/docs/concepts/models-and-orm/model-settings#?migrate *
     *                                                                          *
     ***************************************************************************/
-    migrate: 'alter',
+    migrate: 'safe',
     
     /***************************************************************************
     *                                                                          *
@@ -253,7 +253,7 @@ module.exports = {
       *                                                                          *
       ***************************************************************************/
        onlyAllowOrigins: [
-         'https://besafe-web.herokuapp.com/',
+         'https://besafe-web.herokuapp.com',
       ],
       
       
