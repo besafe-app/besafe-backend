@@ -9,20 +9,18 @@
  */
 
 module.exports.policies = {
-
   /***************************************************************************
-  *                                                                          *
-  * Default policy for all controllers and actions, unless overridden.       *
-  * (`true` allows public access)                                            *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Default policy for all controllers and actions, unless overridden.       *
+   * (`true` allows public access)                                            *
+   *                                                                          *
+   ***************************************************************************/
 
   // '*': true,
   '/swagger': true,
-  'UsersController': {
-    'check': true,
-    'sendSMS': true
-  },
-   '*': ['isAuthorized'],
-
+  UsersController: {
+    check: true,
+    sendSMS: true,
+  }
+  '*': ['isAuthorized'],
 };
