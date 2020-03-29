@@ -1,7 +1,7 @@
 {
 	"name": "disease-backend",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "a Sails application",
 	"keywords": [],
 	"dependencies": {
@@ -14,7 +14,8 @@
 		"sails": "^1.2.3",
 		"sails-hook-grunt": "^4.0.0",
 		"sails-hook-orm": "^2.1.1",
-		"sails-hook-sockets": "^2.0.0"
+		"sails-hook-sockets": "^2.0.0",
+		"sails-postgresql": "^1.0.2"
 	},
 	"devDependencies": {
 		"eslint": "5.16.0"
