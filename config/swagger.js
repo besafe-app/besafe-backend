@@ -33,7 +33,7 @@ module.exports.swaggerConfig = {
       },
       version: '1.0.0',
     },
-    host: 'https://besafe-backend.herokuapp.com',
+    host: 'besafe-backend.herokuapp.com',
     basePath: '/',
     schemes: ['http', 'https'],
     externalDocs: {
