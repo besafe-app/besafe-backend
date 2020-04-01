@@ -86,6 +86,7 @@ module.exports = {
       return res.status(400).json({message:'Missing arguments'});
     }
   },
+
   updateProfile: async(req,res) => {
     const {name,gender,birthDate} = req.allParams();
     if (name && gender && birthDate) {
@@ -94,7 +95,24 @@ module.exports = {
     } else {
       return res.status(400).json({message:'Missing arguments'});
     }
+  },
+
+  auth: async(req, res) => {
+    try {
+      const { phone, name } = req.allParams();
+      console.log(phone);
+      const user = await Users.findOne({ phone: phone, nickname: name });
+      if (user) {
+        if (user.code !== 0 && user.token) {
+          const token = user.token;
+          return res.status(200).json({token:token});
+        }
+        return res.status(409).json({message:'User is not verify'});
+      }
+      return res.status(404).json({message:'User not found'});
+    } catch (error) {
+      return res.status(500).json({message: error.message});
+    }
   }
-  
 };
 
