@@ -34,9 +34,8 @@ module.exports = {
   setConditionAndUser: async (req,res) => {
     const {conditions} = req.allParams();
     try {
-      conditions.forEach(async (condition) => {
-        await UserConditions.create({user:req.session.user.id, condition:condition});
-      });
+      const userConditionsAssociation = conditions.map((condition) => ({ user:req.session.user.id, condition: condition }));
+      await UserConditions.createEach(userConditionsAssociation);
       return res.status(204).send();
     } catch(e) {
       console.error(e);
