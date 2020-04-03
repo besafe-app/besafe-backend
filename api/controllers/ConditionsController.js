@@ -35,7 +35,7 @@ module.exports = {
     const {conditions} = req.allParams();
     try {
       conditions.forEach(async (condition) => {
-        await UserConditions.create({user:req.session.user.id,condition:condition});
+        await UserConditions.create({user:req.session.user.id, condition:condition});
       });
       return res.status(204).send();
     } catch(e) {

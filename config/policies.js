@@ -21,6 +21,14 @@ module.exports.policies = {
   UsersController: {
     check: true,
     sendSMS: true,
+    createFirstStep: true,
+    validateCode: true,
+    '*': 'isAuthorized'
   },
-  '*': ['isAuthorized'],
+  ConditionsController: {
+    '*': 'isAuthorized'
+  },
+  AssessmentsController: {
+    '*': 'isAuthorized'
+  }
 };

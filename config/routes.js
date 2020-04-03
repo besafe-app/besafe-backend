@@ -321,7 +321,7 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            conditions: { type: 'string' },
+            conditions: { type: 'array', items: { type: 'number' } },
           },
         },
       ],
