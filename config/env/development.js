@@ -56,15 +56,8 @@ module.exports = {
       //  ```
       //--------------------------------------------------------------------------
 
-      adapter: require(process.env.NODE_ADAPTER),
-      host: process.env.DATABASE_HOST,
-      port: process.env.DATABASE_PORT,
-      user: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASS,
-      database: process.env.DATABASE_DB,
-      ssl: {
-        rejectUnauthorized: false
-      }
+      adapter: process.env.NODE_ADAPTER || 'sails-disk',
+      url: process.env.DATABASE_URL || '',
 
       /****************************************************************************
        *                                                                           *
