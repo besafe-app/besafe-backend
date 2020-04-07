@@ -67,12 +67,13 @@ module.exports = {
     if (id && code) {
       try {
         const user = await Users.findOne({id:id, code: code});
-        const validCode = await JwtService.verify(user.token, (error) => {
+        const validCode = user ? await JwtService.verify(user.token, async (error) => {
           if (error) {
+            await Users.updateOne({ id: id }).set({ code: 0, token: null });
             return false;
           }
           return true;
-        });
+        }) : false;
         if (user && validCode) {
           const plainObjectUser = { ...user };
           delete plainObjectUser.token;
