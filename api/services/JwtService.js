@@ -5,7 +5,7 @@ const expiresIn = sails.config.secrets.expireToken;
 
 module.exports = {
   issue: (payload) => {
-    const token = jwt.sign(payload, jwtSecret, { algorithm});
+    const token = jwt.sign(payload, jwtSecret, { algorithm, expiresIn });
     return token;
   },
 

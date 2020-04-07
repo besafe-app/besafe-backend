@@ -22,8 +22,8 @@ module.exports = {
       }
     } else {
       return res.status(400).json({message:'Missing arguments'});
-    } 
-  }, 
+    }
+  },
   createFirstStep: async(req,res) => {
     const {name,phone} = req.allParams();
     if (name && phone) {
@@ -46,21 +46,17 @@ module.exports = {
   sendSMS: async(req,res) => {
     const {id} = req.allParams();
     if (id) {
-      try {
-        const user = await Users.findOne({id,code:0});
-        if (user) {
-          const SMS = SmsService.send(user.id);
-          if (!SMS) {
-            return res.status(200).json({message:'User already registred'});
-          } else {
-            return res.status(200).json({message:'SMS sent'});
-          }
-        } else {
-          return res.status(404).json({message:'User not found'});
+      const user = await Users.findOne({ id: id, code: 0 });
+      if (user) {
+        try {
+          await SmsService.send(user.id);
+          return res.status(200).json({message:'SMS sent'});
+        } catch(e) {
+          console.error(e);
+          return res.status(e.status).json({ message:'Erro ao enviar SMS, por favor confirme que o número está correto' });
         }
-      } catch(e) {
-        console.error(e);
-        return res.status(500).send(e);
+      } else {
+        return res.status(404).json({message:'User not found'});
       }
     } else {
       return res.status(400).json({message:'Missing arguments'});
@@ -70,9 +66,17 @@ module.exports = {
     const {id,code} = req.allParams();
     if (id && code) {
       try {
-        const user = await Users.findOne({id:id,code:code});
-        if (user) {
-          const token = JwtService.issue(user);
+        const user = await Users.findOne({id:id, code: code});
+        const validCode = await JwtService.verify(user.token, (error) => {
+          if (error) {
+            return false;
+          }
+          return true;
+        });
+        if (user && validCode) {
+          const plainObjectUser = { ...user };
+          delete plainObjectUser.token;
+          const token = JwtService.issue(plainObjectUser);
           await Users.update({id:id},{token:token});
           return res.status(200).json({token:token});
         } else {
@@ -94,7 +98,6 @@ module.exports = {
     } else {
       return res.status(400).json({message:'Missing arguments'});
     }
-  }
-  
+  },
 };
 
