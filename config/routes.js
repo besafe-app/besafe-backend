@@ -259,7 +259,80 @@ module.exports.routes = {
       ],
     },
   },
-
+  'POST /api/v1/conditions/updateCondition/:id': {
+    controller: 'ConditionsController',
+    action: 'update',
+    swagger: {
+      tag: ['conditions-update'],
+      summary: 'Update condition',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Condition updated successfully',
+        },
+        '400': {
+          description: 'Missing parameters',
+        },
+        '404': {
+          description: 'Condition not found',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            name: { type: 'string' },
+            language: { type: 'string' },
+          },
+        },
+      ],
+    },
+  },
+  'DELETE /api/v1/conditions/deleteCondition/:id': {
+    controller: 'ConditionsController',
+    action: 'delete',
+    swagger: {
+      tag: ['conditions-delete'],
+      summary: 'Delete condition',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Condition deleted successfully',
+        },
+        '400': {
+          description: 'Missing parameters',
+        },
+        '404': {
+          description: 'Condition not found',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            name: { type: 'string' },
+            language: { type: 'string' },
+          },
+        },
+      ],
+    },
+  },
   'GET /api/v1/conditions': {
     controller: 'ConditionsController',
     action: 'get',
