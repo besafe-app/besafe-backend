@@ -476,7 +476,12 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Condition created successfully',
-          type: 'string',
+          schema: {
+            type: 'object',
+            properties: {
+              token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',

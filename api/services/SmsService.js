@@ -1,6 +1,5 @@
 module.exports = {
   send: async (id) => {
-    // Implement SMS Service
     const textNumber = Math.floor(100000 + Math.random() * 900000);
     try {
       await Users.update({id:id},{code:textNumber});

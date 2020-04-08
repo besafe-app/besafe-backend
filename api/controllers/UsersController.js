@@ -36,13 +36,12 @@ module.exports = {
           userPlainObject.code = code;
           const token = JwtService.issue(userPlainObject);
           userPlainObject = { ...userPlainObject, token: token };
-          delete userPlainObject.code;
           delete userPlainObject.createdAt;
           delete userPlainObject.updatedAt;
           await Users.updateOne({ id: user.id }).set({ token: token });
           return res.status(201).json(userPlainObject);
         } else {
-          return res.status(404).json({message:'User already registered'});
+          return res.status(200).json({message:'User already registered'});
         }
       } catch(e) {
         console.error(e);
@@ -115,7 +114,7 @@ module.exports = {
           const token = user.token;
           return res.status(200).json({token: token});
         }
-        return res.status(409).json({message:'User is not verify'});
+        return res.status(200).json({message:'User already registred'});
       }
       return res.status(404).json({message:'User not found'});
     } catch (error) {
