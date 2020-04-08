@@ -111,8 +111,7 @@ module.exports = {
       const user = await Users.findOne({ phone: phone, nickname: name });
       if (user) {
         if (user.code !== 0 && user.token) {
-          const token = user.token;
-          return res.status(200).json({token: token});
+          return res.status(200).json(user);
         }
         return res.status(200).json({message:'User is not verified'});
       }
