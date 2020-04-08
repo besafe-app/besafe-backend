@@ -27,8 +27,8 @@ module.exports = {
       if (id) {
         const condition = await Conditions.find({id:id});
         if(condition){
-          const condition_updated = await Conditions.update({id:id},{name:name, language:language}).fetch();
-          return res.status(201).json(condition_updated);
+          const conditionUpdated = await Conditions.update({id:id},{name:name, language:language}).fetch();
+          return res.status(200).json(conditionUpdated);
         }
         else {
           return res.status(404).json({message:'Condition not found'});
@@ -38,7 +38,7 @@ module.exports = {
       }
     } catch(e) {
       console.error(e);
-      return res.status(200).send(e);
+      return res.status(500).send(e);
     }
   },
   delete: async (req,res) => {
@@ -47,12 +47,12 @@ module.exports = {
       if (id) {
         const condition = await Conditions.find({id:id});
         if(condition){
-          const user_conditions = await UserConditions.find({condition: id});
-          if(user_conditions){
+          const userConditions = await UserConditions.find({condition: id});
+          if(userConditions.length){
             await UserConditions.destroy({condition: id}).fetch();
           }
-          const condition_deleted = await Conditions.destroyOne({id:id});
-          return res.status(201).json(condition_deleted);
+          const conditionDeleted = await Conditions.destroyOne({id:id});
+          return res.status(200).json(conditionDeleted);
         }
         else {
           return res.status(404).json({message:'Condition not found'});
@@ -62,7 +62,7 @@ module.exports = {
       }
     } catch(e) {
       console.error(e);
-      return res.status(200).send(e);
+      return res.status(500).send(e);
     }
   },
   get: async (req,res) => {

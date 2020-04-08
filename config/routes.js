@@ -270,6 +270,16 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Condition updated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'string', example: 1586293846607 },
+              updatedAt: { type: 'string', example: 1586366152316 },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -290,7 +300,6 @@ module.exports.routes = {
           description: 'Body content',
           properties: {
             name: { type: 'string' },
-            language: { type: 'string' },
           },
         },
       ],
@@ -307,6 +316,16 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Condition deleted successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'string', example: 1586293846607 },
+              updatedAt: { type: 'string', example: 1586366152316 },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -322,12 +341,11 @@ module.exports.routes = {
         {
           in: 'body',
           name: 'data',
-          required: true,
+          required: false,
           type: 'object',
           description: 'Body content',
           properties: {
             name: { type: 'string' },
-            language: { type: 'string' },
           },
         },
       ],
