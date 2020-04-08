@@ -114,7 +114,7 @@ module.exports = {
           const token = user.token;
           return res.status(200).json({token: token});
         }
-        return res.status(200).json({message:'User already registred'});
+        return res.status(200).json({message:'User is not verified'});
       }
       return res.status(404).json({message:'User not found'});
     } catch (error) {
