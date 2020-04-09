@@ -60,7 +60,6 @@ module.exports = {
           await SmsService.send(user.id);
           return res.status(200).json({message:'SMS sent'});
         } catch(e) {
-          console.log('HERE');
           console.error(e);
           return res.status(e.status).json({ message:'Error sending SMS, please confirm that your phone is correct' });
         }

@@ -4,8 +4,8 @@ const algorithm = sails.config.secrets.algorithm;
 const expiresIn = sails.config.secrets.expireToken;
 
 module.exports = {
-  issue: (payload, options) => {
-    const token = jwt.sign(payload, jwtSecret, { algorithm, ...options });
+  issue: (payload) => {
+    const token = jwt.sign(payload, jwtSecret, { algorithm });
     return token;
   },
 
