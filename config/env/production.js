@@ -70,6 +70,7 @@ module.exports = {
       // ssl: true,
       adapter: process.env.NODE_ADAPTER || 'sails-disk',
       url: process.env.DATABASE_URL || '',
+      ssl: true
     },
   },
 

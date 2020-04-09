@@ -22,18 +22,26 @@ module.exports = {
       }
     } else {
       return res.status(400).json({message:'Missing arguments'});
-    } 
-  }, 
+    }
+  },
   createFirstStep: async(req,res) => {
     const {name,phone} = req.allParams();
     if (name && phone) {
       try {
-        const user = await Users.findOne({nickname:name,phone:phone,code:0});
-        if (!user) {
-          const newUser = await Users.create({nickname:name,phone:phone}).fetch();
-          return res.status(201).json(newUser);
+        const targetUser = await Users.findOne({ nickname: name, phone: phone, code:0 });
+        if (!targetUser) {
+          const user = await Users.create({nickname:name,phone:phone}).fetch();
+          let userPlainObject = { ...user, code: 0, token: null };
+          const code = await SmsService.send(user.id);
+          userPlainObject.code = code;
+          const token = JwtService.issue(userPlainObject);
+          userPlainObject = { ...userPlainObject, token: token };
+          delete userPlainObject.createdAt;
+          delete userPlainObject.updatedAt;
+          await Users.updateOne({ id: user.id }).set({ token: token });
+          return res.status(201).json(userPlainObject);
         } else {
-          return res.status(404).json({message:'User already registered'});
+          return res.status(200).json({message:'User already registered'});
         }
       } catch(e) {
         console.error(e);
@@ -86,6 +94,7 @@ module.exports = {
       return res.status(400).json({message:'Missing arguments'});
     }
   },
+
   updateProfile: async(req,res) => {
     const {name,gender,birthDate} = req.allParams();
     if (name && gender && birthDate) {
@@ -94,7 +103,21 @@ module.exports = {
     } else {
       return res.status(400).json({message:'Missing arguments'});
     }
-  }
-  
-};
+  },
 
+  auth: async(req, res) => {
+    try {
+      const { phone, name } = req.allParams();
+      const user = await Users.findOne({ phone: phone, nickname: name });
+      if (user) {
+        if (user.code !== 0 && user.token) {
+          return res.status(200).json(user);
+        }
+        return res.status(200).json({message:'User is not verified'});
+      }
+      return res.status(404).json({message:'User not found'});
+    } catch (error) {
+      return res.status(500).json({message: error.message});
+    }
+  }
+};

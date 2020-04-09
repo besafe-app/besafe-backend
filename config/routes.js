@@ -372,14 +372,11 @@ module.exports.routes = {
       },
       parameters: [
         {
-          in: 'body',
-          name: 'data',
-          required: true,
-          type: 'object',
-          description: 'Body content',
-          properties: {
-            name: { type: 'string' },
-          },
+          in: 'query',
+          name: 'language',
+          required: false,
+          type: 'string',
+          description: 'Language of conditions',
         },
       ],
     },
@@ -556,6 +553,49 @@ module.exports.routes = {
           description: 'Internal server error',
         },
       },
+    },
+  },
+
+  'POST /api/v1/users/auth': {
+    controller: 'UsersController',
+    action: 'auth',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Login for user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Condition created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            name: { type: 'string' },
+            phone: { type: 'string' },
+          },
+        },
+      ],
     },
   },
 
