@@ -259,7 +259,98 @@ module.exports.routes = {
       ],
     },
   },
-
+  'POST /api/v1/conditions/updateCondition/:id': {
+    controller: 'ConditionsController',
+    action: 'update',
+    swagger: {
+      tag: ['conditions-update'],
+      summary: 'Update condition',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Condition updated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'string', example: 1586293846607 },
+              updatedAt: { type: 'string', example: 1586366152316 },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+        },
+        '404': {
+          description: 'Condition not found',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            name: { type: 'string' },
+          },
+        },
+      ],
+    },
+  },
+  'DELETE /api/v1/conditions/deleteCondition/:id': {
+    controller: 'ConditionsController',
+    action: 'delete',
+    swagger: {
+      tag: ['conditions-delete'],
+      summary: 'Delete condition',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Condition deleted successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'string', example: 1586293846607 },
+              updatedAt: { type: 'string', example: 1586366152316 },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+        },
+        '404': {
+          description: 'Condition not found',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: false,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            name: { type: 'string' },
+          },
+        },
+      ],
+    },
+  },
   'GET /api/v1/conditions': {
     controller: 'ConditionsController',
     action: 'get',
@@ -281,14 +372,11 @@ module.exports.routes = {
       },
       parameters: [
         {
-          in: 'body',
-          name: 'data',
-          required: true,
-          type: 'object',
-          description: 'Body content',
-          properties: {
-            name: { type: 'string' },
-          },
+          in: 'query',
+          name: 'language',
+          required: false,
+          type: 'string',
+          description: 'Language of conditions',
         },
       ],
     },
@@ -465,6 +553,49 @@ module.exports.routes = {
           description: 'Internal server error',
         },
       },
+    },
+  },
+
+  'POST /api/v1/users/auth': {
+    controller: 'UsersController',
+    action: 'auth',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Login for user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Condition created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            name: { type: 'string' },
+            phone: { type: 'string' },
+          },
+        },
+      ],
     },
   },
 

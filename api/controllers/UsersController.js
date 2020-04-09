@@ -28,12 +28,20 @@ module.exports = {
     const {name,phone} = req.allParams();
     if (name && phone) {
       try {
-        const user = await Users.findOne({nickname:name,phone:phone,code:0});
-        if (!user) {
-          const newUser = await Users.create({nickname:name,phone:phone}).fetch();
-          return res.status(201).json(newUser);
+        const targetUser = await Users.findOne({ nickname: name, phone: phone, code:0 });
+        if (!targetUser) {
+          const user = await Users.create({nickname:name,phone:phone}).fetch();
+          let userPlainObject = { ...user, code: 0, token: null };
+          const code = await SmsService.send(user.id);
+          userPlainObject.code = code;
+          const token = JwtService.issue(userPlainObject);
+          userPlainObject = { ...userPlainObject, token: token };
+          delete userPlainObject.createdAt;
+          delete userPlainObject.updatedAt;
+          await Users.updateOne({ id: user.id }).set({ token: token });
+          return res.status(201).json(userPlainObject);
         } else {
-          return res.status(404).json({message:'User already registered'});
+          return res.status(200).json({message:'User already registered'});
         }
       } catch(e) {
         console.error(e);
@@ -52,8 +60,9 @@ module.exports = {
           await SmsService.send(user.id);
           return res.status(200).json({message:'SMS sent'});
         } catch(e) {
+          console.log('HERE');
           console.error(e);
-          return res.status(e.status).json({ message:'Erro ao enviar SMS, por favor confirme que o número está correto' });
+          return res.status(e.status).json({ message:'Error sending SMS, please confirm that your phone is correct' });
         }
       } else {
         return res.status(404).json({message:'User not found'});
@@ -91,6 +100,7 @@ module.exports = {
       return res.status(400).json({message:'Missing arguments'});
     }
   },
+
   updateProfile: async(req,res) => {
     const {name,gender,birthDate} = req.allParams();
     if (name && gender && birthDate) {
@@ -100,5 +110,20 @@ module.exports = {
       return res.status(400).json({message:'Missing arguments'});
     }
   },
-};
 
+  auth: async(req, res) => {
+    try {
+      const { phone, name } = req.allParams();
+      const user = await Users.findOne({ phone: phone, nickname: name });
+      if (user) {
+        if (user.code !== 0 && user.token) {
+          return res.status(200).json(user);
+        }
+        return res.status(200).json({message:'User is not verified'});
+      }
+      return res.status(404).json({message:'User not found'});
+    } catch (error) {
+      return res.status(500).json({message: error.message});
+    }
+  }
+};

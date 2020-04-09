@@ -21,6 +21,50 @@ module.exports = {
       return res.status(200).send(e);
     }
   },
+  update: async (req,res) => {
+    const { id, name, language } = req.allParams();
+    try {
+      if (id) {
+        const condition = await Conditions.find({id:id});
+        if(condition){
+          const conditionUpdated = await Conditions.update({id:id},{name:name, language:language}).fetch();
+          return res.status(200).json(conditionUpdated);
+        }
+        else {
+          return res.status(404).json({message:'Condition not found'});
+        }
+      }else{
+          return res.status(400).json({message:'Missing arguments'});
+      }
+    } catch(e) {
+      console.error(e);
+      return res.status(500).send(e);
+    }
+  },
+  delete: async (req,res) => {
+    const { id } = req.allParams();
+    try {
+      if (id) {
+        const condition = await Conditions.find({id:id});
+        if(condition){
+          const userConditions = await UserConditions.find({condition: id});
+          if(userConditions.length){
+            await UserConditions.destroy({condition: id}).fetch();
+          }
+          const conditionDeleted = await Conditions.destroyOne({id:id});
+          return res.status(200).json(conditionDeleted);
+        }
+        else {
+          return res.status(404).json({message:'Condition not found'});
+        }
+      }else{
+          return res.status(400).json({message:'Missing arguments'});
+      }
+    } catch(e) {
+      console.error(e);
+      return res.status(500).send(e);
+    }
+  },
   get: async (req,res) => {
     const {language} = req.param('language') || 'pt';
     try {

@@ -23,6 +23,7 @@ module.exports.policies = {
     sendSMS: true,
     createFirstStep: true,
     validateCode: true,
+    auth: true,
     '*': 'isAuthorized'
   },
   ConditionsController: {
