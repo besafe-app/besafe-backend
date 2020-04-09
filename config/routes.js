@@ -598,6 +598,94 @@ module.exports.routes = {
       ],
     },
   },
+  'POST /api/v1/users/active/:id': {
+    controller: 'UsersController',
+    action: 'activate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Active User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User activated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: true },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
+        },
+      ],
+    },
+  },
+  'POST /api/v1/users/deactive/:id': {
+    controller: 'UsersController',
+    action: 'deactivate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Deactive User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User deactivated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: false },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
+        },
+      ],
+    },
+  },
 
   /***************************************************************************
    *                                                                          *
