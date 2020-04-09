@@ -9,20 +9,14 @@ const ServiceSMS = SmsService('twilio', {
 });
 
 module.exports = {
-  send: async (id) => {
-    const textNumber = Math.floor(100000 + Math.random() * 900000);
-    const user = await Users.findOne({ id: id });
-    await ServiceSMS.send({
-      recipient: [user.phone],
-      message: `Be safe, aqui está o seu código verificador: ${textNumber}`,
+  send: async (phone, message, callback) => {
+    return await ServiceSMS.send({
+      recipient: [phone],
+      message: `${message}`,
     })
-      .then(async () => {
-        const token = JwtService.issue({ code: textNumber, user: id });
-        await Users.updateOne({ id: id }).set({ code: textNumber, token: token });
-      })
+      .then(async () => callback && callback())
       .catch((error) => {
         throw error;
       });
-    return textNumber;
   },
 };
