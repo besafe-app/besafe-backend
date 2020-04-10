@@ -102,7 +102,7 @@ module.exports = {
           },
         );
         if (decodedUserPass === password) {
-          if(user.activate){
+          if(user.activated){
             const plainUser = { ...user };
             delete plainUser.password;
             return res.status(200).json(plainUser);
