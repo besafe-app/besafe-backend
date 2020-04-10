@@ -24,12 +24,18 @@ module.exports.policies = {
     createFirstStep: true,
     validateCode: true,
     auth: true,
-    '*': 'isAuthorized'
+    getAll: 'isAdmin',
+    '*': 'isAuthorized',
   },
   ConditionsController: {
     '*': 'isAuthorized'
   },
   AssessmentsController: {
     '*': 'isAuthorized'
+  },
+  AdminUsersController:{
+    validateCode: true,
+    recoveryGreenCard: true,
+    '*': 'isAdmin'
   }
 };

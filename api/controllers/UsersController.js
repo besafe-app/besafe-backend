@@ -6,6 +6,28 @@
 */
 
 module.exports = {
+  getAll: async(req, res) => {
+    try {
+      let users = await Users.find();
+      if(users.length){
+        for(let i = 0; i< users.length; i++){
+          let userConditions = await UserConditions.find({user: users[i].id});
+          for(let j = 0; j < userConditions.length; j++){
+            let element = await Conditions.findOne({id: userConditions[j].condition})
+            if(element){
+              userConditions[j].condition = element.name;
+            }            
+          }
+          users[i].conditions = userConditions;
+        }
+        return res.status(200).json(users);
+      }else{
+        return res.status(404).json({ message: 'No common user has been registered' });
+      }
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
   check: async(req,res) => {
     const {name,phone} = req.allParams();
     if (name && phone) {

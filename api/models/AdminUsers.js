@@ -38,5 +38,13 @@ module.exports = {
       type: 'string',
       allowNull: null,
     },
+    code: {
+      type: 'number',
+      defaultsTo: 0
+    },
+    activated: {
+      type: 'boolean',
+      defaultsTo: true
+    },
   },
 };
