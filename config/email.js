@@ -12,10 +12,10 @@ module.exports.email = {
     service: "SendGrid",
     auth: {
         user:"apikey",
-        pass: "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"
+        pass: ""
     },
     templateDir: "api/emailTemplates",
-    from: "luizfufsj@gmail.com",
+    from: "",
     testMode:false,
     ssl: false
 }
