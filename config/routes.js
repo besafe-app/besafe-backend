@@ -1142,8 +1142,8 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            data: { type: 'string' },
-            type: { type: 'int' },
+            email: { type: 'string', example: "aa@aa.com.br" },
+            tipo: { type: 'int', example: "1: send email code; 0: send sms code" },
           },
         },
       ],
