@@ -25,15 +25,21 @@ module.exports.policies = {
     validateCode: true,
     auth: true,
     getAll: 'isAdmin',
+    activate: 'isAdmin',
+    deactivate: 'isAdmin',
     '*': 'isAuthorized',
   },
   ConditionsController: {
-    '*': 'isAuthorized'
+    create: 'isAdmin',
+    update: 'isAdmin',
+    delete: 'isAdmin',
+    '*': 'isAuthorized',
   },
   AssessmentsController: {
     '*': 'isAuthorized'
   },
   AdminUsersController:{
+    auth: true,
     validateCode: true,
     recoveryGreenCard: true,
     '*': 'isAdmin'

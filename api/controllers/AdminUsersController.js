@@ -15,7 +15,7 @@ module.exports = {
       if(id){
         const adminUser = await AdminUsers.findOne({ id: id });
         if(adminUser){
-          return res.status(200).json({adminUser})
+          return res.status(200).json(adminUser);
         }
       }else{
         return res.status(400).json({ message: 'Missing arguments' })

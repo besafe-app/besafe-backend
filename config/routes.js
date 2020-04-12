@@ -29,6 +29,12 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'User and phone found',
+          schema: {
+            type: 'object',
+            properties: {
+              message: { type: 'string', example: 'User already registred' },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -74,6 +80,19 @@ module.exports.routes = {
       responses: {
         '201': {
           description: 'User created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: '' },
+              phone: { type: 'string', example: '31923411284' },
+              nickname: { type: 'string', example: 'Joseph' },
+              code: { type: 'int', example: 123 },
+              gender: { type: 'string', example: 'male' },
+              token: { type: 'string', example: 'token_common_user' },
+              activated: { type: 'boolean', example: true },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -116,6 +135,12 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'SMS sent successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              message: { type: 'string', example: 'User already registred' },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -154,6 +179,12 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'SMS validate successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              token: { type: 'string', example: 'token_common_user' },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -197,6 +228,19 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Updated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: '' },
+              phone: { type: 'string', example: '31923411284' },
+              nickname: { type: 'string', example: 'Joseph' },
+              code: { type: 'int', example: 123 },
+              gender: { type: 'string', example: 'male' },
+              token: { type: 'string', example: 'token_common_user' },
+              activated: { type: 'boolean', example: true },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -209,6 +253,13 @@ module.exports.routes = {
         },
       },
       parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
         {
           in: 'body',
           name: 'data',
@@ -225,7 +276,7 @@ module.exports.routes = {
     },
   },
 
-  'POST /api/v1/conditions': {
+  'POST /api/v1/web/conditions': {
     controller: 'ConditionsController',
     action: 'create',
     swagger: {
@@ -236,6 +287,16 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Condition created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'int', example: 1586723387394 },
+              updatedAt: { type: 'int', example: 1586723387394 },
+              id: { type: 'int', example: '' },
+              name: { type: 'string', example: 123 },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -245,6 +306,13 @@ module.exports.routes = {
         },
       },
       parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
         {
           in: 'body',
           name: 'data',
@@ -259,7 +327,7 @@ module.exports.routes = {
       ],
     },
   },
-  'POST /api/v1/conditions/updateCondition/:id': {
+  'POST /api/v1/web/conditions/updateCondition/:id': {
     controller: 'ConditionsController',
     action: 'update',
     swagger: {
@@ -273,11 +341,11 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              id: { type: 'int', example: 0 },
-              name: { type: 'string', example: 'Febre' },
               language: { type: 'string', example: 'pt' },
-              createdAt: { type: 'string', example: 1586293846607 },
-              updatedAt: { type: 'string', example: 1586366152316 },
+              createdAt: { type: 'int', example: 1586723387394 },
+              updatedAt: { type: 'int', example: 1586723387394 },
+              id: { type: 'int', example: '' },
+              name: { type: 'string', example: 123 },
             }
           }
         },
@@ -293,6 +361,13 @@ module.exports.routes = {
       },
       parameters: [
         {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
           in: 'body',
           name: 'data',
           required: true,
@@ -305,7 +380,7 @@ module.exports.routes = {
       ],
     },
   },
-  'DELETE /api/v1/conditions/deleteCondition/:id': {
+  'DELETE /api/v1/web/conditions/deleteCondition/:id': {
     controller: 'ConditionsController',
     action: 'delete',
     swagger: {
@@ -339,6 +414,13 @@ module.exports.routes = {
       },
       parameters: [
         {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
           in: 'body',
           name: 'data',
           required: false,
@@ -362,6 +444,16 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Condition created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'string', example: 1586293846607 },
+              updatedAt: { type: 'string', example: 1586366152316 },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -371,6 +463,13 @@ module.exports.routes = {
         },
       },
       parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
         {
           in: 'query',
           name: 'language',
@@ -411,6 +510,22 @@ module.exports.routes = {
           description: 'Internal server error',
         },
       },
+      parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
+          in: 'query',
+          name: 'language',
+          required: false,
+          type: 'string',
+          description: 'Language of conditions',
+        },
+      ],
     },
   },
 
@@ -434,6 +549,13 @@ module.exports.routes = {
         },
       },
       parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
         {
           in: 'body',
           name: 'data',
@@ -459,6 +581,21 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Conditions found',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              user: { type: 'int', example: 0 },
+              createdAt: { type: 'string', example: 1586726020833 },
+              updatedAt: { type: 'string', example: 1586726020833 },
+              condition: { type: 'object', properties: {
+                createdAt: { type: 'int', example: 1586293846607 },
+                updatedAt: { type: 'int', example: 1586366152316 },
+                id: { type: 'int', example: 0 },
+                name: { type: 'string', example: 'Febre' },
+              } },
+            }
+          }
         },
         '404': {
           description: 'Conditions not found',
@@ -467,6 +604,15 @@ module.exports.routes = {
           description: 'Internal server error',
         },
       },
+      parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+      ],
       security: [
         {
           Authorization: [],
@@ -786,13 +932,6 @@ module.exports.routes = {
       },
       parameters: [
         {
-          in: 'header',
-          name: 'Authorization',
-          required: true,
-          type: 'string',
-          description: 'Bearer {token}',
-        },
-        {
           in: 'body',
           name: 'data',
           required: true,
@@ -817,6 +956,32 @@ module.exports.routes = {
       responses: {
         '201': {
           description: 'User created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              cpf: {
+                type: 'string',
+              },
+              email: {
+                type: 'string',
+              },
+              phone: {
+                type: 'string',
+              },
+              name: {
+                type: 'string',
+              },
+              gender: {
+                type: 'string',
+                example: 'female',
+              },
+              birthdate: {
+                type: 'date',
+                example: '',
+              },
+              token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -830,6 +995,13 @@ module.exports.routes = {
       },
       parameters: [
         {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
           in: 'body',
           name: 'data',
           required: true,
@@ -838,11 +1010,6 @@ module.exports.routes = {
           properties: {
             data: { type: 'string' },
           },
-        },
-      ],
-      security: [
-        {
-          Authorization: [],
         },
       ],
     },
@@ -898,21 +1065,18 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              adminUser: { type: 'objects', example: { 
-                  active: {type: 'boolean', example: true},
-                  createdAt: {type: 'int', example: 1586371531741},
-                  updatedAt: {type: 'int', example: 1586371540704},
-                  id: {type: 'int', example: 0},
-                  cpf: {type: 'string', example: '13058085241'},
-                  email: {type: 'string', example: 'example@example.com.br'},
-                  password: {type: 'string', example: '****'},
-                  phone: {type: 'string', example: '9312312123'},
-                  nickname: {type: 'string', example: 'joseph'},
-                  code: {type: 'int', example: 240638},
-                  gender: {type: 'string', example: ['male','female','other']},
-                  token: {type: 'string', example: 'token_common_user'},
-                }
-              }
+              active: {type: 'boolean', example: true},
+              createdAt: {type: 'int', example: 1586371531741},
+              updatedAt: {type: 'int', example: 1586371540704},
+              id: {type: 'int', example: 0},
+              cpf: {type: 'string', example: '13058085241'},
+              email: {type: 'string', example: 'example@example.com.br'},
+              password: {type: 'string', example: '****'},
+              phone: {type: 'string', example: '9312312123'},
+              nickname: {type: 'string', example: 'joseph'},
+              code: {type: 'int', example: 240638},
+              gender: {type: 'string', example: ['male','female','other']},
+              token: {type: 'string', example: 'token_common_user'},
             }
           }
         },
@@ -923,6 +1087,15 @@ module.exports.routes = {
           description: 'Internal server error',
         },
       },
+      parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+      ],
     },
   },
   
@@ -953,7 +1126,27 @@ module.exports.routes = {
         '500': {
           description: 'Internal server error',
         },
-      }
+      },
+      parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            data: { type: 'string' },
+            type: { type: 'int' },
+          },
+        },
+      ],
     }
   },
   'POST /api/v1/web/users/validateCode': {
@@ -1043,6 +1236,13 @@ module.exports.routes = {
       },
       parameters: [
         {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
           in: 'body',
           name: 'data',
           required: true,
@@ -1051,11 +1251,6 @@ module.exports.routes = {
           properties: {
             data: { type: 'string' },
           },
-        },
-      ],
-      security: [
-        {
-          Authorization: [],
         },
       ],
     },
@@ -1095,16 +1290,18 @@ module.exports.routes = {
       },
       parameters: [
         {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
           in: 'path',
           name: 'id',
           required: true,
           type: 'int',
           description: 'User id',
-        },
-      ],
-      security: [
-        {
-          Authorization: [],
         },
       ],
     },
@@ -1144,16 +1341,18 @@ module.exports.routes = {
       },
       parameters: [
         {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
           in: 'path',
           name: 'id',
           required: true,
           type: 'int',
           description: 'User id',
-        },
-      ],
-      security: [
-        {
-          Authorization: [],
         },
       ],
     },
