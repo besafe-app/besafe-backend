@@ -27,23 +27,6 @@ module.exports = {
   create: async (req, res) => {
     try {
       const { data } = req.allParams();
-      /* const {
-        cpf,
-        email,
-        password,
-        phone,
-        name,
-        gender,
-        birthdate,
-      } = JwtService.decodeFrontValue(
-        data,
-        (error, decoded) => {
-          if (error) {
-            throw error;
-          }
-          return decoded;
-        },
-      ); */
       const {
         cpf,
         email,
@@ -90,15 +73,6 @@ module.exports = {
     try {
       const { data } = req.allParams();
       const { email, password } = data;
-      /* const { email, password } = JwtService.decodeFrontValue(
-        data,
-        (error, decoded) => {
-          if (error) {
-            throw error;
-          }
-          return decoded;
-        },
-      ); */
       const user = await AdminUsers.findOne({ email: email });
       if (user) {
         const decodedUserPass = JwtService.verify(
