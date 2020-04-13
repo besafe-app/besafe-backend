@@ -27,7 +27,7 @@ module.exports = {
   create: async (req, res) => {
     try {
       const { data } = req.allParams();
-      const {
+      /* const {
         cpf,
         email,
         password,
@@ -43,8 +43,16 @@ module.exports = {
           }
           return decoded;
         },
-      );
-
+      ); */
+      const {
+        cpf,
+        email,
+        password,
+        phone,
+        name,
+        gender,
+        birthdate,
+      } = data;
       if (cpf && email && password) {
         const targetUser = await AdminUsers.findOne({ cpf: cpf });
         if (!targetUser) {
@@ -81,7 +89,8 @@ module.exports = {
   auth: async (req, res) => {
     try {
       const { data } = req.allParams();
-      const { cpf, password } = JwtService.decodeFrontValue(
+      const { email, password } = data;
+      /* const { email, password } = JwtService.decodeFrontValue(
         data,
         (error, decoded) => {
           if (error) {
@@ -89,8 +98,8 @@ module.exports = {
           }
           return decoded;
         },
-      );
-      const user = await AdminUsers.findOne({ cpf: cpf });
+      ); */
+      const user = await AdminUsers.findOne({ email: email });
       if (user) {
         const decodedUserPass = JwtService.verify(
           user.password,

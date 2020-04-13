@@ -42,6 +42,7 @@ module.exports.policies = {
     auth: true,
     validateCode: true,
     recoveryGreenCard: true,
+    create: true,
     '*': 'isAdmin'
   }
 };
