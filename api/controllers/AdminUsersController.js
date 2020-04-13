@@ -5,11 +5,9 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-
 module.exports = {
   create: async (req, res) => {
     try {
-      const { data } = req.allParams();
       const {
         cpf,
         email,
@@ -18,24 +16,15 @@ module.exports = {
         name,
         gender,
         birthdate,
-      } = JwtService.decodeFrontValue(
-        data,
-        (error, decoded) => {
-          if (error) {
-            throw error;
-          }
-          return decoded;
-        },
-      );
+      } = req.allParams();
       if (cpf && email && password) {
         const targetUser = await AdminUsers.findOne({ cpf: cpf });
         if (!targetUser) {
           try {
-            const encodedPass = JwtService.issue({ password: password });
             const user = await AdminUsers.create({
               cpf,
               email,
-              password: encodedPass,
+              password,
               phone,
               name,
               gender,
@@ -62,33 +51,12 @@ module.exports = {
   },
   auth: async (req, res) => {
     try {
-      const { data } = req.allParams();
-      const { cpf, password } = JwtService.decodeFrontValue(
-        data,
-        (error, decoded) => {
-          if (error) {
-            throw error;
-          }
-          return decoded;
-        },
-      );
-      const user = await Users.findOne({ cpf: cpf });
+      const { cpf, password } = req.allParams();
+      const user = await Users.findOne({ cpf: cpf, password: password });
       if (user) {
-        const decodedUserPass = JwtService.verify(
-          user.password,
-          (error, decoded) => {
-            if (error) {
-              throw error;
-            }
-            return decoded.password;
-          },
-        );
-        if (decodedUserPass === password) {
-          const plainUser = { ...user };
-          delete plainUser.password;
-          return res.status(200).json(plainUser);
-        }
-        return res.status(400).json({ message: 'User or password is invalid' });
+        const plainUser = { ...user };
+        delete plainUser.password;
+        return res.status(200).json(plainUser);
       }
       return res.status(404).json({ message: 'User or password is invalid' });
     } catch (error) {

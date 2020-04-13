@@ -637,8 +637,8 @@ module.exports.routes = {
             }
           }
         },
-        '400': {
-          description: 'Missing parameters',
+        '404': {
+          description: 'User or password is invalid',
           type: 'string',
         },
         '500': {
@@ -654,7 +654,8 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            data: { type: 'string' },
+            cpf: { type: 'string' },
+            password: { type: 'string' },
           },
         },
       ],
@@ -670,14 +671,14 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
+        '200': {
+          description: 'User already registered',
+        },
         '201': {
           description: 'User created successfully',
         },
         '400': {
           description: 'Missing parameters',
-        },
-        '404': {
-          description: 'User and phone not found',
         },
         '500': {
           description: 'Internal server error',
@@ -691,7 +692,29 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            data: { type: 'string' },
+            cpf: {
+              type: 'string',
+            },
+            password: {
+              type: 'string',
+            },
+            email: {
+              type: 'string',
+            },
+            phone: {
+              type: 'string',
+            },
+            name: {
+              type: 'string',
+            },
+            gender: {
+              type: 'string',
+              example: 'female',
+            },
+            birthdate: {
+              type: 'date',
+              example: '',
+            },
           },
         },
       ],
