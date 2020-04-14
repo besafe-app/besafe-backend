@@ -357,7 +357,7 @@ module.exports = {
   secrets: {
     jwtSecret: 'cd5d341dcf5a8ecd8506cd5aa819ab36',
     algorithm: 'HS256',
-    passphrase: '',
-    frontendPassphrase: '',
+    passphrase: 'q2flDZ5V6q6246OOapK1Hu6ACShPjixZgDvgjRJNAkcHvFma9lUxhNMV5DlBWxqYRKn7jV445xBbiKYHYRlcCIrN3QerVJFQakA5',
+    frontendPassphrase: 'zKC507hJARIw9UNLBUjCZNfo37wdn9w30kKU78kK92pxfJC6jS3aACc7yaYOoZaP',
   },
 };

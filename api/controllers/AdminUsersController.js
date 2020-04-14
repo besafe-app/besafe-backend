@@ -20,9 +20,10 @@ module.exports = {
         const targetUser = await AdminUsers.findOne({ email: email });
         if (!targetUser) {
           try {
+            const encriptedPass = CryptoService.encrypt(password);
             const user = await AdminUsers.create({
               email,
-              password,
+              password: encriptedPass,
               phone,
               name,
               gender,
@@ -50,11 +51,15 @@ module.exports = {
   auth: async (req, res) => {
     try {
       const { email, password } = req.allParams();
-      const user = await AdminUsers.findOne({ email: email, password: password });
+      const user = await AdminUsers.findOne({ email: email });
       if (user) {
-        const plainUser = { ...user };
-        delete plainUser.password;
-        return res.status(200).json(plainUser);
+        const descriptedPass = CryptoService.decrypt(user.password);
+        if (password === descriptedPass) {
+          const plainUser = { ...user };
+          delete plainUser.password;
+          return res.status(200).json(plainUser);
+        }
+        return res.status(404).json({ message: 'User or password is invalid' });
       }
       return res.status(404).json({ message: 'User or password is invalid' });
     } catch (error) {
