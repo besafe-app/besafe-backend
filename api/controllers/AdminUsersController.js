@@ -33,7 +33,7 @@ module.exports = {
           return res.status(status).json(error);
         }
       }
-      return res.status(200).json({ message: 'User already registered' });
+      return res.status(409).json({ message: 'User already registered' });
     }
     return res.status(400).json({ message: 'Missing arguments' });
   },
