@@ -278,8 +278,8 @@ module.exports.routes = {
               language: { type: 'string', example: 'pt' },
               createdAt: { type: 'string', example: 1586293846607 },
               updatedAt: { type: 'string', example: 1586366152316 },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -324,8 +324,8 @@ module.exports.routes = {
               language: { type: 'string', example: 'pt' },
               createdAt: { type: 'string', example: 1586293846607 },
               updatedAt: { type: 'string', example: 1586366152316 },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -571,8 +571,8 @@ module.exports.routes = {
             type: 'object',
             properties: {
               token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -613,9 +613,6 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              cpf: {
-                type: 'string',
-              },
               email: {
                 type: 'string',
               },
@@ -634,8 +631,8 @@ module.exports.routes = {
                 example: '',
               },
               token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
-            }
-          }
+            },
+          },
         },
         '404': {
           description: 'User or password is invalid',
@@ -654,7 +651,7 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            cpf: { type: 'string' },
+            email: { type: 'string' },
             password: { type: 'string' },
           },
         },
@@ -673,6 +670,29 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'User already registered',
+          schema: {
+            type: 'object',
+            properties: {
+              email: {
+                type: 'string',
+              },
+              phone: {
+                type: 'string',
+              },
+              name: {
+                type: 'string',
+              },
+              gender: {
+                type: 'string',
+                example: 'female',
+              },
+              birthdate: {
+                type: 'date',
+                example: '',
+              },
+              token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
+            },
+          },
         },
         '201': {
           description: 'User created successfully',
@@ -692,9 +712,6 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            cpf: {
-              type: 'string',
-            },
             password: {
               type: 'string',
             },
