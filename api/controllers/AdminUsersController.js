@@ -9,7 +9,6 @@ module.exports = {
   create: async (req, res) => {
     try {
       const {
-        cpf,
         email,
         password,
         phone,
@@ -17,12 +16,11 @@ module.exports = {
         gender,
         birthdate,
       } = req.allParams();
-      if (cpf && email && password) {
-        const targetUser = await AdminUsers.findOne({ cpf: cpf });
+      if (email && password) {
+        const targetUser = await AdminUsers.findOne({ email: email });
         if (!targetUser) {
           try {
             const user = await AdminUsers.create({
-              cpf,
               email,
               password,
               phone,
@@ -51,8 +49,8 @@ module.exports = {
   },
   auth: async (req, res) => {
     try {
-      const { cpf, password } = req.allParams();
-      const user = await Users.findOne({ cpf: cpf, password: password });
+      const { email, password } = req.allParams();
+      const user = await AdminUsers.findOne({ email: email, password: password });
       if (user) {
         const plainUser = { ...user };
         delete plainUser.password;
