@@ -10,7 +10,7 @@ const ServiceSMS = SmsService('twilio', {
 
 module.exports = {
   send: async (phone, message, callback) => {
-    return await ServiceSMS.send({
+    return ServiceSMS.send({
       recipient: [phone],
       message: `${message}`,
     })
