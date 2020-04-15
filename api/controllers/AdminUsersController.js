@@ -8,10 +8,10 @@
 module.exports = {
   create: async (req, res) => {
     const { email, password, phone, name, gender, birthdate } = req.allParams();
-    if (email && password) {
-      const targetUser = await AdminUsers.findOne({ email: email });
-      if (!targetUser) {
-        try {
+    try {
+      if (email && password) {
+        const targetUser = await AdminUsers.findOne({ email: email });
+        if (!targetUser) {
           const encriptedPass = CryptoService.encrypt(password);
           const user = await AdminUsers.create({
             email,
@@ -27,15 +27,15 @@ module.exports = {
           delete plainUser.password;
           plainUser.token = token;
           return res.status(201).json(plainUser);
-        } catch (error) {
-          console.log(error);
-          const status = error.code || error.status || 500;
-          return res.status(status).json(error);
         }
+        return res.status(409).json({ message: 'User already registered' });
       }
-      return res.status(409).json({ message: 'User already registered' });
+      return res.status(400).json({ message: 'Missing arguments' });
+    } catch (error) {
+      console.log(error);
+      const status = error.code || error.status || 500;
+      return res.status(status).json(error);
     }
-    return res.status(400).json({ message: 'Missing arguments' });
   },
   auth: async (req, res) => {
     try {
