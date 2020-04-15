@@ -278,8 +278,8 @@ module.exports.routes = {
               language: { type: 'string', example: 'pt' },
               createdAt: { type: 'string', example: 1586293846607 },
               updatedAt: { type: 'string', example: 1586366152316 },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -324,8 +324,8 @@ module.exports.routes = {
               language: { type: 'string', example: 'pt' },
               createdAt: { type: 'string', example: 1586293846607 },
               updatedAt: { type: 'string', example: 1586366152316 },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -571,8 +571,8 @@ module.exports.routes = {
             type: 'object',
             properties: {
               token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -599,6 +599,149 @@ module.exports.routes = {
     },
   },
 
+  'POST /api/v1/web/users/auth': {
+    controller: 'AdminUsersController',
+    action: 'auth',
+    swagger: {
+      tag: ['Web Users'],
+      summary: 'Login for web user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Condition created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              email: {
+                type: 'string',
+              },
+              phone: {
+                type: 'string',
+              },
+              name: {
+                type: 'string',
+              },
+              gender: {
+                type: 'string',
+                example: 'female',
+              },
+              birthdate: {
+                type: 'date',
+                example: '',
+              },
+              token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
+            },
+          },
+        },
+        '404': {
+          description: 'User or password is invalid',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            email: { type: 'string' },
+            password: { type: 'string' },
+          },
+        },
+      ],
+    },
+  },
+
+  'POST /api/v1/web/users/create': {
+    controller: 'AdminUsersController',
+    action: 'create',
+    swagger: {
+      tag: ['create web users'],
+      summary: 'Create web user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User already registered',
+          schema: {
+            type: 'object',
+            properties: {
+              email: {
+                type: 'string',
+              },
+              phone: {
+                type: 'string',
+              },
+              name: {
+                type: 'string',
+              },
+              gender: {
+                type: 'string',
+                example: 'female',
+              },
+              birthdate: {
+                type: 'date',
+                example: '',
+              },
+              token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
+            },
+          },
+        },
+        '201': {
+          description: 'User created successfully',
+        },
+        '400': {
+          description: 'Missing parameters',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            password: {
+              type: 'string',
+            },
+            email: {
+              type: 'string',
+            },
+            phone: {
+              type: 'string',
+            },
+            name: {
+              type: 'string',
+            },
+            gender: {
+              type: 'string',
+              example: 'female',
+            },
+            birthdate: {
+              type: 'date',
+              example: '',
+            },
+          },
+        },
+      ],
+      security: [
+        {
+          Authorization: [],
+        },
+      ],
+    },
+  },
   /***************************************************************************
    *                                                                          *
    * More custom routes here...                                               *
