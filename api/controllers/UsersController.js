@@ -28,24 +28,21 @@ module.exports = {
     const {name,phone} = req.allParams();
     if (name && phone) {
       try {
-        const targetUser = await Users.findOne({ nickname: name, phone: phone, code:0 });
+        const targetUser = await Users.findOne({ nickname: name, phone: phone });
         if (!targetUser) {
-          const user = await Users.create({nickname:name,phone:phone}).fetch();
-          let userPlainObject = { ...user, code: 0, token: null };
-          const code = await SmsService.send(user.id);
-          userPlainObject.code = code;
-          const token = JwtService.issue(userPlainObject);
-          userPlainObject = { ...userPlainObject, token: token };
-          delete userPlainObject.createdAt;
-          delete userPlainObject.updatedAt;
-          await Users.updateOne({ id: user.id }).set({ token: token });
-          return res.status(201).json(userPlainObject);
+          const code = CodeService.generate();
+          const message = `Be safe, aqui está o seu código verificador de cadastro: ${code}`;
+          const user = await SmsService.send(phone, message, async () => {
+            return await Users.create({ nickname:name, phone:phone, code: code }).fetch();
+          });
+          return res.status(201).json(user);
         } else {
           return res.status(200).json({message:'User already registered'});
         }
       } catch(e) {
         console.error(e);
-        return res.status(500).send(e);
+        const status = e.status || 500;
+        return res.status(status).send(e);
       }
     } else {
       return res.status(400).json({message:'Missing arguments'});
@@ -54,21 +51,21 @@ module.exports = {
   sendSMS: async(req,res) => {
     const {id} = req.allParams();
     if (id) {
-      try {
-        const user = await Users.findOne({id,code:0});
-        if (user) {
-          const SMS = SmsService.send(user.id);
-          if (!SMS) {
-            return res.status(200).json({message:'User already registred'});
-          } else {
-            return res.status(200).json({message:'SMS sent'});
-          }
-        } else {
-          return res.status(404).json({message:'User not found'});
+      const user = await Users.findOne({ id: id, code: 0 });
+      if (user) {
+        try {
+          const code = CodeService.generate();
+          const message = `Be safe, aqui está o seu código verificador: ${code}`;
+          await SmsService.send(user.phone, message, async () => {
+            await Users.updateOne({ id: user.id }).set({ code: code });
+          });
+          return res.status(200).json({message:'SMS sent'});
+        } catch(e) {
+          console.error(e);
+          return res.status(e.status).json({ message:'Error sending SMS, please confirm that your phone is correct' });
         }
-      } catch(e) {
-        console.error(e);
-        return res.status(500).send(e);
+      } else {
+        return res.status(404).json({message:'User not found'});
       }
     } else {
       return res.status(400).json({message:'Missing arguments'});
@@ -78,9 +75,11 @@ module.exports = {
     const {id,code} = req.allParams();
     if (id && code) {
       try {
-        const user = await Users.findOne({id:id,code:code});
+        const user = await Users.findOne({id:id, code: code});
         if (user) {
-          const token = JwtService.issue(user);
+          const plainObjectUser = { ...user };
+          delete plainObjectUser.token;
+          const token = JwtService.issue(plainObjectUser);
           await Users.update({id:id},{token:token});
           return res.status(200).json({token:token});
         } else {
