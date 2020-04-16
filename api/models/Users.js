@@ -35,7 +35,11 @@ module.exports = {
     token: {
       type: 'string',
       allowNull: null
-    }
+    },
+    activated: {
+      type: 'boolean',
+      defaultsTo: true
+    },
   },
 
 };

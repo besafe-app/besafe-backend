@@ -742,6 +742,293 @@ module.exports.routes = {
       ],
     },
   },
+  'POST /api/v1/users/active/:id': {
+    controller: 'UsersController',
+    action: 'activate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Active User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User activated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: true },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
+        },
+      ],
+    },
+  },
+  'POST /api/v1/users/deactive/:id': {
+    controller: 'UsersController',
+    action: 'deactivate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Deactive User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User deactivated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: false },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
+        },
+      ],
+    },
+  },
+  'POST /api/v1/web/users/active/:id': {
+    controller: 'AdminUsersController',
+    action: 'activate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Active User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User activated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: true },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
+        },
+      ],
+    },
+  },
+  'POST /api/v1/web/users/deactive/:id': {
+    controller: 'AdminUsersController',
+    action: 'deactivate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Deactive User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User deactivated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: false },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
+        },
+      ],
+    },
+  },
+
+  'POST /api/v1/web/users/recoveryGreenCard': {
+    controller: 'AdminUsersController',
+    action: 'recoveryGreenCard',
+    swagger: {
+      tag: ['recovery green card'],
+      summary: 'Recovery password admin user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Admin user found',
+          schema: {
+            type: 'object',
+            properties: {
+              success: {type: 'string', example: 'Email sent'}
+            }
+          }
+        },
+        '400': {
+          description: 'Missing arguments',
+        },
+        '404': {
+          description: 'Email not exists',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          required: true,
+          type: 'string',
+          description: 'Bearer {token}',
+        },
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            email: { type: 'string', example: "aa@aa.com.br" },
+            tipo: { type: 'int', example: "1: send email code; 0: send sms code" },
+          },
+        },
+      ],
+    }
+  },
+  'POST /api/v1/web/users/validateCode': {
+    controller: 'AdminUsersController',
+    action: 'validateCode',
+    swagger: {
+      tag: ['validade web code'],
+      summary: 'Recovery password admin user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Admin user found',
+          schema: {
+            type: 'object',
+            properties: {
+              success: {type: 'boolean', example: true}
+            }
+          }
+        },
+        '400': {
+          description: 'Missing arguments',
+        },
+        '403': {
+          description: '403 Forbidden',
+        },
+        '404': {
+          description: 'Invalid Admin',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            email: { type: 'string' },
+            code: { type: 'string' },
+          },
+        },
+      ],
+    }
+  },
   /***************************************************************************
    *                                                                          *
    * More custom routes here...                                               *
