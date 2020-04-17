@@ -43,7 +43,7 @@ module.exports = {
       const user = await AdminUsers.findOne({ email: email });
       if (user) {
         const decryptedPass = CryptoService.decrypt(user.password);
-        if (password === decryptedPass) {
+        if ((password === decryptedPass) && (user.activated)) {
           const plainUser = { ...user };
           delete plainUser.password;
           return res.status(200).json(plainUser);
@@ -62,22 +62,17 @@ module.exports = {
         const adminUser = await AdminUsers.findOne({email: email});
         if(adminUser){
           if(type == 1){
-            let code = Math.floor(100000 + Math.random() * 900000);
+            const code = CodeService.generate();
             EmailService.sendCode({email, name: adminUser.name, code});
             await AdminUsers.update({email: email, id: adminUser.id},{code: code});
             return res.status(200).json({message:'Email sent'});
           }else{
-            try {
               const code = CodeService.generate();
               const message = `Be safe, aqui está o seu código verificador: ${code}`;
-              await SmsService.send('+55'+adminUser.phone, message, async () => {
+              await SmsService.send(adminUser.phone, message, async () => {
                 await AdminUsers.updateOne({ id: adminUser.id }).set({ code: code });
               });
               return res.status(200).json({message:'SMS sent'});
-            } catch(e) {
-              console.error(e);
-              return res.status(e.status).json({ message:'Error sending SMS, please confirm that your phone is correct' });
-            }
           }
         }else{
           return res.status(404).json({ message: 'Email not exists'})  
@@ -96,18 +91,9 @@ module.exports = {
         const adminuser = await AdminUsers.findOne({email:email,code:code});
         if(adminuser){
           if (adminuser.code == code) {
-            let newPassword = (len, arr) => { 
-              var ans = ''; 
-              for (var i = len; i > 0; i--) { 
-                  ans +=  
-                    arr[Math.floor(Math.random() * arr.length)]; 
-              } 
-              return ans; 
-            };
-            let password = newPassword(20, '1234567890abcdefghijklmn');
-            let newCode = Math.floor(100000 + Math.random() * 900000);
-            const encodedPass = CryptoService.encrypt(password);
-            await AdminUsers.update({email: email, code: code}, {password: encodedPass, code: newCode});
+            let newCode = CodeService.generate();
+            const password = CryptoService.decrypt(adminuser.password);
+            await AdminUsers.update({email: email, code: code}, {code: newCode});
             EmailService.sendPass({email, name: adminuser.name, password});
             return res.status(200).json({success: true});
           }else{

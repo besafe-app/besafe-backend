@@ -109,7 +109,7 @@ module.exports = {
       const { phone, name, code } = req.allParams();
       const user = await Users.findOne({ phone: phone, nickname: name, code: code });
       if (user) {
-        if (user.code !== 0 && user.token) {
+        if (user.code !== 0 && user.token && user.activated) {
           return res.status(200).json(user);
         }
         return res.status(200).json({message:'User is not verified'});

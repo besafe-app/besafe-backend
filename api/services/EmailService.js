@@ -33,7 +33,7 @@ module.exports={
             },
             {
                 to: obj.email,
-                subject: "Nova senha Be safe!"
+                subject: "Recuperação de senha Be safe!"
             },
             function(err) {
                 if(err)
