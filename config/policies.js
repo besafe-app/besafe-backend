@@ -27,9 +27,12 @@ module.exports.policies = {
     '*': 'isAuthorized'
   },
   ConditionsController: {
-    '*': 'isAuthorized'
+    '*': true,
   },
   AssessmentsController: {
-    '*': 'isAuthorized'
+    '*': true
+  },
+  GeoController: {
+    '*': true,
   }
 };
