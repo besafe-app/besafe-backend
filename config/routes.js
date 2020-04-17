@@ -823,6 +823,15 @@ module.exports.routes = {
           description: 'Internal server error',
         },
       },
+      parameters: [
+        {
+          in: 'path',
+          name: 'city',
+          required: true,
+          type: 'string',
+          description: 'city name',
+        },
+      ]
     },
   },
 
