@@ -742,6 +742,99 @@ module.exports.routes = {
       ],
     },
   },
+
+  'GET /api/v1/web/map': {
+    controller: 'GeoController',
+    action: 'getAll',
+    swagger: {
+      tag: ['get all points'],
+      summary: 'Get all geographic data of covid',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'All Geographic data',
+          schema: {
+            type: 'array',
+            items: {
+              properties: {
+                status: { type: 'string' },
+                score: { type: 'number' },
+                date: { type: 'string' },
+                state: { type: 'string' },
+                city: { type: 'string' },
+                placeType: { type: 'string' },
+                confirmed: { type: 'number' },
+                deaths: { type: 'number' },
+                isLast: { type: 'boolean' },
+                ibgeCode: { type: 'number' },
+                confRate: { type: 'number' },
+                deathRate: { type: 'number' },
+                x: { type: 'string' },
+                y: { type: 'string' },
+                geom: { type: 'string' },
+              },
+            }
+          },
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+    },
+  },
+
+  'GET /api/v1/web/map/:city': {
+    controller: 'GeoController',
+    action: 'getByCity',
+    swagger: {
+      tag: ['get point by city'],
+      summary: 'Get geographic data of covid by city',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Get geographic data by city',
+          schema: {
+            type: 'object',
+            properties: {
+              status: { type: 'string' },
+              score: { type: 'number' },
+              date: { type: 'string' },
+              state: { type: 'string' },
+              city: { type: 'string' },
+              placeType: { type: 'string' },
+              confirmed: { type: 'number' },
+              deaths: { type: 'number' },
+              isLast: { type: 'boolean' },
+              ibgeCode: { type: 'number' },
+              confRate: { type: 'number' },
+              deathRate: { type: 'number' },
+              x: { type: 'string' },
+              y: { type: 'string' },
+              geom: { type: 'string' },
+            },
+          },
+        },
+        '204': {
+          description: 'No content',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'city',
+          required: true,
+          type: 'string',
+          description: 'city name',
+        },
+      ]
+    },
+  },
+
   /***************************************************************************
    *                                                                          *
    * More custom routes here...                                               *
