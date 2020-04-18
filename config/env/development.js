@@ -86,7 +86,7 @@ module.exports = {
      * https://sailsjs.com/docs/concepts/models-and-orm/model-settings#?migrate *
      *                                                                          *
      ***************************************************************************/
-    migrate: 'alter',
+    migrate: 'safe',
 
     /***************************************************************************
      *                                                                          *
@@ -357,6 +357,5 @@ module.exports = {
   secrets: {
     jwtSecret: 'cd5d341dcf5a8ecd8506cd5aa819ab36',
     algorithm: 'HS256',
-    JwtSecretFront: '',
   },
 };

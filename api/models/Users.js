@@ -39,7 +39,7 @@ module.exports = {
     activated: {
       type: 'boolean',
       defaultsTo: true
-    }
+    },
   },
 
 };

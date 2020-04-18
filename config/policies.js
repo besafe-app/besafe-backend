@@ -24,25 +24,18 @@ module.exports.policies = {
     createFirstStep: true,
     validateCode: true,
     auth: true,
-    getAll: 'isAdmin',
-    activate: 'isAdmin',
-    deactivate: 'isAdmin',
+    getAll: true,
+    activate: true,
+    deactivate: true,
     '*': 'isAuthorized',
   },
   ConditionsController: {
-    create: 'isAdmin',
-    update: 'isAdmin',
-    delete: 'isAdmin',
-    '*': 'isAuthorized',
+    '*': true,
   },
   AssessmentsController: {
-    '*': 'isAuthorized'
+    '*': true
   },
-  AdminUsersController:{
-    auth: true,
-    validateCode: true,
-    recoveryGreenCard: true,
-    create: true,
-    '*': 'isAdmin'
+  GeoController: {
+    '*': true,
   }
 };

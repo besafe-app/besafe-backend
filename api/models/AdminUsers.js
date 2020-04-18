@@ -7,14 +7,10 @@
 
 module.exports = {
   attributes: {
-    cpf: {
-      type: 'string',
-      required: true,
-      unique: true,
-    },
     email: {
       type: 'string',
       required: true,
+      unique: true
     },
     password: {
       type: 'string',

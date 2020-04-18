@@ -1,22 +1,22 @@
-module.exports = {
-  send: async (id) => {
-    const textNumber = Math.floor(100000 + Math.random() * 900000);
-    try {
-      await Users.update({id:id},{code:textNumber});
-      return textNumber;
-    } catch(e) {
-      console.error(e);
-      return false;
-    }
+const SmsService = require('sails-service-sms');
+
+const ServiceSMS = SmsService('twilio', {
+  sender: process.env.TWILIO_NUMBER,
+  provider: {
+    accountSid: process.env.TWILIO_ACCOUNT_ID,
+    authToken: process.env.TWILIO_TOKEN,
   },
-  sendAdmin: async (id) => {
-    const textNumber = Math.floor(100000 + Math.random() * 900000);
-    try {
-      await AdminUsers.update({id:id},{code:textNumber});
-      return textNumber;
-    } catch(e) {
-      console.error(e);
-      return false;
-    }
-  }
+});
+
+module.exports = {
+  send: async (phone, message, callback) => {
+    return ServiceSMS.send({
+      recipient: [phone],
+      message: `${message}`,
+    })
+      .then(async () => callback && callback())
+      .catch((error) => {
+        throw error;
+      });
+  },
 };
