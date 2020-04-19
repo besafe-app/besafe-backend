@@ -83,7 +83,7 @@ module.exports = {
       return res.status(204).send();
     } catch(e) {
       console.error(e); 
-      return res.status(500).send(e);
+      return res.status(500).json(e);
     }
   },
   getByUser: async(req,res) => {

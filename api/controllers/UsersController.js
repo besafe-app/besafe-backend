@@ -12,16 +12,6 @@ module.exports = {
     try {
       let users = await Users.find();
       if(users.length){
-        for(let i = 0; i< users.length; i++){
-          let userConditions = await UserConditions.find({user: users[i].id});
-          for(let j = 0; j < userConditions.length; j++){
-            let element = await Conditions.findOne({id: userConditions[j].condition})
-            if(element){
-              userConditions[j].condition = element.name;
-            }            
-          }
-          users[i].conditions = userConditions;
-        }
         return res.status(200).json(users);
       }else{
         return res.status(404).json({ message: 'No common user has been registered' });
@@ -56,9 +46,10 @@ module.exports = {
         if (!targetUser) {
           const code = CodeService.generate();
           const message = `Be safe, aqui está o seu código verificador de cadastro: ${code}`;
-          const user = await SmsService.send(phone, message, async () => {
+          /* const user = await SmsService.send(phone, message, async () => {
             return await Users.create({ nickname:name, phone:phone, code: code }).fetch();
-          });
+          }); */
+          const user = await Users.create({ nickname:name, phone:phone, code: code }).fetch();
           return res.status(201).json(user);
         } else {
           return res.status(200).json({message:'User already registered'});
@@ -136,7 +127,7 @@ module.exports = {
         if (user.code !== 0 && user.token && user.activated) {
           return res.status(200).json(user);
         }
-        return res.status(400).json({message:'User is not verified or activated'});
+        return res.status(401).json({message:'User is not verified or activated'});
       }
       return res.status(404).json({message:'User not found'});
     } catch (error) {

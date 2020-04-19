@@ -159,4 +159,33 @@ module.exports = {
       return res.status(500).json({message: error.message});
     }
   },
+  updateProfile: async(req,res) => {
+    const { data } = req.allParams();
+    const adminUser = await AdminUsers.findOne({id:req.session.user.id});
+    if(adminUser){
+      if(data){
+        try{
+          if(data.id){
+            delete data.id;
+          }
+          if(data.password){
+            delete data.password;
+          }
+          if(data.token){
+            delete data.token;
+          }
+          const userUpdated = await AdminUsers.updateOne({id:req.session.user.id}).set(data);
+          return res.status(200).json(userUpdated);
+        }catch(error){
+          return res.status(500).json({message: error.message});
+        }
+      }else{
+        return res.status(400).json({message: 'Missing arguments'});
+      }
+    }else{
+      return res.status(404).json({message: 'Invalid admin user'});
+    }
+
+
+  },
 };
