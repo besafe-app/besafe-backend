@@ -6,6 +6,23 @@
  */
 
 module.exports = {
+  
+  get: async(req, res) => {
+    //Get the user logged in the session and displays info about him
+    try{
+      const id = req.session.user.id;
+      if(id){
+        const adminUser = await AdminUsers.findOne({ id: id });
+        if(adminUser){
+          return res.status(200).json(adminUser);
+        }
+      }else{
+        return res.status(400).json({ message: 'Missing arguments' })
+      }
+    }catch(error){
+      return res.status(500).json(error);
+    }
+  },
   create: async (req, res) => {
     const { email, password, phone, name, gender, birthdate } = req.allParams();
     try {
@@ -141,5 +158,34 @@ module.exports = {
     }catch (error){
       return res.status(500).json({message: error.message});
     }
+  },
+  updateProfile: async(req,res) => {
+    const { data } = req.allParams();
+    const adminUser = await AdminUsers.findOne({id:req.session.user.id});
+    if(adminUser){
+      if(data){
+        try{
+          if(data.id){
+            delete data.id;
+          }
+          if(data.password){
+            delete data.password;
+          }
+          if(data.token){
+            delete data.token;
+          }
+          const userUpdated = await AdminUsers.updateOne({id:req.session.user.id}).set(data);
+          return res.status(200).json(userUpdated);
+        }catch(error){
+          return res.status(500).json({message: error.message});
+        }
+      }else{
+        return res.status(400).json({message: 'Missing arguments'});
+      }
+    }else{
+      return res.status(404).json({message: 'Invalid admin user'});
+    }
+
+
   },
 };

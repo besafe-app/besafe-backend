@@ -82,8 +82,8 @@ module.exports = {
       await UserConditions.createEach(userConditionsAssociation);
       return res.status(204).send();
     } catch(e) {
-      console.error(e);
-      return res.status(200).send(e);
+      console.error(e); 
+      return res.status(500).json(e);
     }
   },
   getByUser: async(req,res) => {

@@ -29,6 +29,12 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'User and phone found',
+          schema: {
+            type: 'object',
+            properties: {
+              message: { type: 'string', example: 'User already registred' },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -74,6 +80,19 @@ module.exports.routes = {
       responses: {
         '201': {
           description: 'User created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: '' },
+              phone: { type: 'string', example: '31923411284' },
+              nickname: { type: 'string', example: 'Joseph' },
+              code: { type: 'int', example: 123 },
+              gender: { type: 'string', example: 'male' },
+              token: { type: 'string', example: 'token_common_user' },
+              activated: { type: 'boolean', example: true },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -116,6 +135,12 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'SMS sent successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              message: { type: 'string', example: 'User already registred' },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -154,6 +179,12 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'SMS validate successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              token: { type: 'string', example: 'token_common_user' },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -197,6 +228,19 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Updated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: '' },
+              phone: { type: 'string', example: '31923411284' },
+              nickname: { type: 'string', example: 'Joseph' },
+              code: { type: 'int', example: 123 },
+              gender: { type: 'string', example: 'male' },
+              token: { type: 'string', example: 'token_common_user' },
+              activated: { type: 'boolean', example: true },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -236,6 +280,16 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Condition created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'int', example: 1586723387394 },
+              updatedAt: { type: 'int', example: 1586723387394 },
+              id: { type: 'int', example: '' },
+              name: { type: 'string', example: 123 },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -244,7 +298,7 @@ module.exports.routes = {
           description: 'Internal server error',
         },
       },
-      parameters: [
+      parameters: [,
         {
           in: 'body',
           name: 'data',
@@ -273,8 +327,6 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              id: { type: 'int', example: 0 },
-              name: { type: 'string', example: 'Febre' },
               language: { type: 'string', example: 'pt' },
               createdAt: { type: 'string', example: 1586293846607 },
               updatedAt: { type: 'string', example: 1586366152316 },
@@ -362,6 +414,16 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Condition created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'string', example: 1586293846607 },
+              updatedAt: { type: 'string', example: 1586366152316 },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -427,6 +489,21 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Conditions found',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              user: { type: 'int', example: 0 },
+              createdAt: { type: 'string', example: 1586726020833 },
+              updatedAt: { type: 'string', example: 1586726020833 },
+              condition: { type: 'object', properties: {
+                createdAt: { type: 'int', example: 1586293846607 },
+                updatedAt: { type: 'int', example: 1586366152316 },
+                id: { type: 'int', example: 0 },
+                name: { type: 'string', example: 'Febre' },
+              } },
+            }
+          }
         },
         '404': {
           description: 'Conditions not found',
@@ -570,9 +647,20 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
-            },
-          },
+              activated: {type: 'boolean', example: true},
+              createdAt: {type: 'int', example: 1586371531741},
+              updatedAt: {type: 'int', example: 1586371540704},
+              id: {type: 'int', example: 0},
+              cpf: {type: 'string', example: '13058085241'},
+              email: {type: 'string', example: 'example@example.com.br'},
+              password: {type: 'string', example: '****'},
+              phone: {type: 'string', example: '9312312123'},
+              nickname: {type: 'string', example: 'joseph'},
+              code: {type: 'int', example: 240638},
+              gender: {type: 'string', example: ['male','female','other']},
+              token: {type: 'string', example: 'token_common_user'},
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -594,6 +682,94 @@ module.exports.routes = {
             name: { type: 'string' },
             phone: { type: 'string' },
           },
+        },
+      ],
+    },
+  },
+  'POST /api/v1/users/active/:id': {
+    controller: 'UsersController',
+    action: 'activate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Active User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User activated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: true },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
+        },
+      ],
+    },
+  },
+  'POST /api/v1/users/deactive/:id': {
+    controller: 'UsersController',
+    action: 'deactivate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Deactive User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User deactivated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: false },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
         },
       ],
     },
@@ -696,6 +872,32 @@ module.exports.routes = {
         },
         '201': {
           description: 'User created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              cpf: {
+                type: 'string',
+              },
+              email: {
+                type: 'string',
+              },
+              phone: {
+                type: 'string',
+              },
+              name: {
+                type: 'string',
+              },
+              gender: {
+                type: 'string',
+                example: 'female',
+              },
+              birthdate: {
+                type: 'date',
+                example: '',
+              },
+              token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
+            }
+          }
         },
         '400': {
           description: 'Missing parameters',
@@ -735,9 +937,310 @@ module.exports.routes = {
           },
         },
       ],
-      security: [
+    },
+  },
+
+  'GET /api/v1/web/users': {
+    controller: 'UsersController',
+    action: 'getAll',
+    swagger: {
+      tag: ['common users'],
+      summary: 'Shows all common users',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Admin user found',
+          schema: {
+            type: 'object',
+            properties: {
+              active: {type: 'boolean', example: true},
+              createdAt: {type: 'int', example: 1586371531741},
+              updatedAt: {type: 'int', example: 1586371540704},
+              id: {type: 'int', example: 0},
+              name: {type: 'string', example: 'José da Silva'},
+              phone: {type: 'string', example: '9312312123'},
+              nickname: {type: 'string', example: 'joseph'},
+              code: {type: 'int', example: 240638},
+              gender: {type: 'string', example: ['male','female','other']},
+              token: {type: 'string', example: 'token_common_user'},
+            }
+          }
+        },
+        '400': {
+          description: 'Missing arguments',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+    },
+  },
+  'GET /api/v1/web/getAdmin': {
+    controller: 'AdminUsersController',
+    action: 'get',
+    swagger: {
+      tag: ['common users'],
+      summary: 'Shows logged admin',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Users found',
+          schema: {
+            type: 'object',
+            properties: {
+              active: {type: 'boolean', example: true},
+              createdAt: {type: 'int', example: 1586371531741},
+              updatedAt: {type: 'int', example: 1586371540704},
+              id: {type: 'int', example: 0},
+              cpf: {type: 'string', example: '13058085241'},
+              email: {type: 'string', example: 'example@example.com.br'},
+              password: {type: 'string', example: '****'},
+              phone: {type: 'string', example: '9312312123'},
+              nickname: {type: 'string', example: 'joseph'},
+              code: {type: 'int', example: 240638},
+              gender: {type: 'string', example: ['male','female','other']},
+              token: {type: 'string', example: 'token_common_user'},
+            }
+          }
+        },
+        '404': {
+          description: 'No common user has been registered',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+    },
+  },
+  
+  'POST /api/v1/web/users/recoveryGreenCard': {
+    controller: 'AdminUsersController',
+    action: 'recoveryGreenCard',
+    swagger: {
+      tag: ['recovery green card'],
+      summary: 'Recovery password admin user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Admin user found',
+          schema: {
+            type: 'object',
+            properties: {
+              success: {type: 'boolean', example: true}
+            }
+          }
+        },
+        '400': {
+          description: 'Missing arguments',
+        },
+        '404': {
+          description: 'Email not exists',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
         {
-          Authorization: [],
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            email: { type: 'string', example: "aa@aa.com.br" },
+            tipo: { type: 'int', example: "1: send email code; 0: send sms code" },
+          },
+        },
+      ],
+    }
+  },
+  'POST /api/v1/web/users/validateCode': {
+    controller: 'AdminUsersController',
+    action: 'validateCode',
+    swagger: {
+      tag: ['validade web code'],
+      summary: 'Recovery password admin user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Admin user found',
+          schema: {
+            type: 'object',
+            properties: {
+              success: {type: 'boolean', example: true}
+            }
+          }
+        },
+        '400': {
+          description: 'Missing arguments',
+        },
+        '403': {
+          description: '403 Forbidden',
+        },
+        '404': {
+          description: 'Invalid Admin',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            email: { type: 'string' },
+            code: { type: 'string' },
+          },
+        },
+      ],
+    }
+  },
+  'POST /api/v1/web/users/update': {
+    controller: 'AdminUsersController',
+    action: 'updateProfile',
+    swagger: {
+      tag: ['update web user'],
+      summary: 'Update web user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '201': {
+          description: 'Admin User updated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              active: {type: 'boolean', example: true},
+              createdAt: {type: 'int', example: 1586371531741},
+              updatedAt: {type: 'int', example: 1586371540704},
+              id: {type: 'int', example: 0},
+              cpf: {type: 'string', example: '13058085241'},
+              email: {type: 'string', example: 'example@example.com.br'},
+              password: {type: 'string', example: '****'},
+              phone: {type: 'string', example: '9312312123'},
+              nickname: {type: 'string', example: 'joseph'},
+              code: {type: 'int', example: 240638},
+              gender: {type: 'string', example: ['male','female','other']},
+              token: {type: 'string', example: 'token_common_user'},
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+        },
+        '404': {
+          description: 'User and phone not found',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            data: { type: 'string' },
+          },
+        },
+      ],
+    },
+  },
+  'POST /api/v1/web/users/active/:id': {
+    controller: 'AdminUsersController',
+    action: 'activate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Active User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User activated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: true },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
+        },
+      ],
+    },
+  },
+  'POST /api/v1/web/users/deactive/:id': {
+    controller: 'AdminUsersController',
+    action: 'deactivate',
+    swagger: {
+      tag: ['Users'],
+      summary: 'Deactive User',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User deactivated successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              nickname: { type: 'string', example: 'José Alberto' },
+              activated: { type: 'boolean', example: false },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+          type: 'string',
+        },
+        '404': {
+          description: 'User not found',
+          type: 'string',
+        },
+        '500': {
+          description: 'Internal server error',
+          type: 'string',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'int',
+          description: 'User id',
         },
       ],
     },
@@ -832,293 +1335,6 @@ module.exports.routes = {
         },
       ]
     },
-  },
-  'POST /api/v1/users/active/:id': {
-    controller: 'UsersController',
-    action: 'activate',
-    swagger: {
-      tag: ['Users'],
-      summary: 'Active User',
-      consumes: ['application/json'],
-      produces: ['application/json'],
-      responses: {
-        '200': {
-          description: 'User activated successfully',
-          schema: {
-            type: 'object',
-            properties: {
-              id: { type: 'int', example: 0 },
-              nickname: { type: 'string', example: 'José Alberto' },
-              activated: { type: 'boolean', example: true },
-            }
-          }
-        },
-        '400': {
-          description: 'Missing parameters',
-          type: 'string',
-        },
-        '404': {
-          description: 'User not found',
-          type: 'string',
-        },
-        '500': {
-          description: 'Internal server error',
-          type: 'string',
-        },
-      },
-      parameters: [
-        {
-          in: 'path',
-          name: 'id',
-          required: true,
-          type: 'int',
-          description: 'User id',
-        },
-      ],
-    },
-  },
-  'POST /api/v1/users/deactive/:id': {
-    controller: 'UsersController',
-    action: 'deactivate',
-    swagger: {
-      tag: ['Users'],
-      summary: 'Deactive User',
-      consumes: ['application/json'],
-      produces: ['application/json'],
-      responses: {
-        '200': {
-          description: 'User deactivated successfully',
-          schema: {
-            type: 'object',
-            properties: {
-              id: { type: 'int', example: 0 },
-              nickname: { type: 'string', example: 'José Alberto' },
-              activated: { type: 'boolean', example: false },
-            }
-          }
-        },
-        '400': {
-          description: 'Missing parameters',
-          type: 'string',
-        },
-        '404': {
-          description: 'User not found',
-          type: 'string',
-        },
-        '500': {
-          description: 'Internal server error',
-          type: 'string',
-        },
-      },
-      parameters: [
-        {
-          in: 'path',
-          name: 'id',
-          required: true,
-          type: 'int',
-          description: 'User id',
-        },
-      ],
-    },
-  },
-  'POST /api/v1/web/users/active/:id': {
-    controller: 'AdminUsersController',
-    action: 'activate',
-    swagger: {
-      tag: ['Users'],
-      summary: 'Active User',
-      consumes: ['application/json'],
-      produces: ['application/json'],
-      responses: {
-        '200': {
-          description: 'User activated successfully',
-          schema: {
-            type: 'object',
-            properties: {
-              id: { type: 'int', example: 0 },
-              nickname: { type: 'string', example: 'José Alberto' },
-              activated: { type: 'boolean', example: true },
-            }
-          }
-        },
-        '400': {
-          description: 'Missing parameters',
-          type: 'string',
-        },
-        '404': {
-          description: 'User not found',
-          type: 'string',
-        },
-        '500': {
-          description: 'Internal server error',
-          type: 'string',
-        },
-      },
-      parameters: [
-        {
-          in: 'header',
-          name: 'Authorization',
-          required: true,
-          type: 'string',
-          description: 'Bearer {token}',
-        },
-        {
-          in: 'path',
-          name: 'id',
-          required: true,
-          type: 'int',
-          description: 'User id',
-        },
-      ],
-    },
-  },
-  'POST /api/v1/web/users/deactive/:id': {
-    controller: 'AdminUsersController',
-    action: 'deactivate',
-    swagger: {
-      tag: ['Users'],
-      summary: 'Deactive User',
-      consumes: ['application/json'],
-      produces: ['application/json'],
-      responses: {
-        '200': {
-          description: 'User deactivated successfully',
-          schema: {
-            type: 'object',
-            properties: {
-              id: { type: 'int', example: 0 },
-              nickname: { type: 'string', example: 'José Alberto' },
-              activated: { type: 'boolean', example: false },
-            }
-          }
-        },
-        '400': {
-          description: 'Missing parameters',
-          type: 'string',
-        },
-        '404': {
-          description: 'User not found',
-          type: 'string',
-        },
-        '500': {
-          description: 'Internal server error',
-          type: 'string',
-        },
-      },
-      parameters: [
-        {
-          in: 'header',
-          name: 'Authorization',
-          required: true,
-          type: 'string',
-          description: 'Bearer {token}',
-        },
-        {
-          in: 'path',
-          name: 'id',
-          required: true,
-          type: 'int',
-          description: 'User id',
-        },
-      ],
-    },
-  },
-
-  'POST /api/v1/web/users/recoveryGreenCard': {
-    controller: 'AdminUsersController',
-    action: 'recoveryGreenCard',
-    swagger: {
-      tag: ['recovery green card'],
-      summary: 'Recovery password admin user',
-      consumes: ['application/json'],
-      produces: ['application/json'],
-      responses: {
-        '200': {
-          description: 'Admin user found',
-          schema: {
-            type: 'object',
-            properties: {
-              success: {type: 'string', example: 'Email sent'}
-            }
-          }
-        },
-        '400': {
-          description: 'Missing arguments',
-        },
-        '404': {
-          description: 'Email not exists',
-        },
-        '500': {
-          description: 'Internal server error',
-        },
-      },
-      parameters: [
-        {
-          in: 'header',
-          name: 'Authorization',
-          required: true,
-          type: 'string',
-          description: 'Bearer {token}',
-        },
-        {
-          in: 'body',
-          name: 'data',
-          required: true,
-          type: 'object',
-          description: 'Body content',
-          properties: {
-            email: { type: 'string', example: "aa@aa.com.br" },
-            tipo: { type: 'int', example: "1: send email code; 0: send sms code" },
-          },
-        },
-      ],
-    }
-  },
-  'POST /api/v1/web/users/validateCode': {
-    controller: 'AdminUsersController',
-    action: 'validateCode',
-    swagger: {
-      tag: ['validade web code'],
-      summary: 'Recovery password admin user',
-      consumes: ['application/json'],
-      produces: ['application/json'],
-      responses: {
-        '200': {
-          description: 'Admin user found',
-          schema: {
-            type: 'object',
-            properties: {
-              success: {type: 'boolean', example: true}
-            }
-          }
-        },
-        '400': {
-          description: 'Missing arguments',
-        },
-        '403': {
-          description: '403 Forbidden',
-        },
-        '404': {
-          description: 'Invalid Admin',
-        },
-        '500': {
-          description: 'Internal server error',
-        },
-      },
-      parameters: [
-        {
-          in: 'body',
-          name: 'data',
-          required: true,
-          type: 'object',
-          description: 'Body content',
-          properties: {
-            email: { type: 'string' },
-            code: { type: 'string' },
-          },
-        },
-      ],
-    }
   },
   /***************************************************************************
    *                                                                          *

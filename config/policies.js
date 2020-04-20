@@ -24,7 +24,10 @@ module.exports.policies = {
     createFirstStep: true,
     validateCode: true,
     auth: true,
-    '*': 'isAuthorized'
+    getAll: true,
+    activate: true,
+    deactivate: true,
+    '*': 'isAuthorized',
   },
   ConditionsController: {
     '*': true,

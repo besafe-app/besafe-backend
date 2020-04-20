@@ -35,7 +35,6 @@ module.exports = (req, res, next) => {
   } else {
     return res.status(401).json('No Authorization header found.');
   }
-
   JwtService.verify(token, (err, decoded) => {
     if (err) return res.status(401).json('invalid-token');
     req.session.token = token;
@@ -46,7 +45,6 @@ module.exports = (req, res, next) => {
       }).exec((err, result) => {
         if (err) return res.status(400).json(err);
         if (!result) return res.status(404).json('user-not-found');
-
         req.session.user = result;
   
         next();
