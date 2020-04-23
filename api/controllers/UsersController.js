@@ -46,10 +46,9 @@ module.exports = {
         if (!targetUser) {
           const code = CodeService.generate();
           const message = `Be safe, aqui está o seu código verificador de cadastro: ${code}`;
-          /* const user = await SmsService.send(phone, message, async () => {
+          const user = await SmsService.send(phone, message, async () => {
             return await Users.create({ nickname:name, phone:phone, code: code }).fetch();
-          }); */
-          const user = await Users.create({ nickname:name, phone:phone, code: code }).fetch();
+          });
           return res.status(201).json(user);
         } else {
           return res.status(200).json({message:'User already registered'});
