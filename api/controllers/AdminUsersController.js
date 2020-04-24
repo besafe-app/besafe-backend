@@ -1,25 +1,17 @@
-/**
- * AdminUsersController
- *
- * @description :: Server-side actions for handling incoming requests.
- * @help        :: See https://sailsjs.com/docs/concepts/actions
- */
-
 module.exports = {
-  
-  get: async(req, res) => {
+  get: async (req, res) => {
     //Get the user logged in the session and displays info about him
-    try{
+    try {
       const id = req.session.user.id;
-      if(id){
+      if (id) {
         const adminUser = await AdminUsers.findOne({ id: id });
-        if(adminUser){
+        if (adminUser) {
           return res.status(200).json(adminUser);
         }
-      }else{
-        return res.status(400).json({ message: 'Missing arguments' })
+      } else {
+        return res.status(400).json({ message: 'Missing arguments' });
       }
-    }catch(error){
+    } catch (error) {
       return res.status(500).json(error);
     }
   },
@@ -60,7 +52,7 @@ module.exports = {
       const user = await AdminUsers.findOne({ email: email });
       if (user) {
         const decryptedPass = CryptoService.decrypt(user.password);
-        if ((password === decryptedPass) && (user.activated)) {
+        if (password === decryptedPass && user.activated) {
           const plainUser = { ...user };
           delete plainUser.password;
           return res.status(200).json(plainUser);
@@ -72,120 +64,131 @@ module.exports = {
       return res.status(500).json({ message: error.message });
     }
   },
-  recoveryGreenCard: async(req, res) => {
-    try{
+  recoveryGreenCard: async (req, res) => {
+    try {
       const { email, type } = req.allParams();
-      if(email && type){
-        const adminUser = await AdminUsers.findOne({email: email});
-        if(adminUser){
-          if(type == 1){
+      if (email && type) {
+        const adminUser = await AdminUsers.findOne({ email: email });
+        if (adminUser) {
+          if (type == 1) {
             const code = CodeService.generate();
-            EmailService.sendCode({email, name: adminUser.name, code});
-            await AdminUsers.update({email: email, id: adminUser.id},{code: code});
-            return res.status(200).json({message:'Email sent'});
-          }else{
-              const code = CodeService.generate();
-              const message = `Be safe, aqui está o seu código verificador: ${code}`;
-              await SmsService.send(adminUser.phone, message, async () => {
-                await AdminUsers.updateOne({ id: adminUser.id }).set({ code: code });
+            EmailService.sendCode({ email, name: adminUser.name, code });
+            await AdminUsers.update(
+              { email: email, id: adminUser.id },
+              { code: code },
+            );
+            return res.status(200).json({ message: 'Email sent' });
+          } else {
+            const code = CodeService.generate();
+            const message = `Be safe, aqui está o seu código verificador: ${code}`;
+            await SmsService.send(adminUser.phone, message, async () => {
+              await AdminUsers.updateOne({ id: adminUser.id }).set({
+                code: code,
               });
-              return res.status(200).json({message:'SMS sent'});
+            });
+            return res.status(200).json({ message: 'SMS sent' });
           }
-        }else{
-          return res.status(404).json({ message: 'Email not exists'})  
+        } else {
+          return res.status(404).json({ message: 'Email not exists' });
         }
-      }else{
-        return res.status(400).json({ message: 'Missing arguments'})
+      } else {
+        return res.status(400).json({ message: 'Missing arguments' });
       }
-    }catch(error){
-      return res.status(500).json({message: error.message})
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
     }
   },
-  validateCode: async(req,res) => {
-    const {email,code } = req.allParams();
+  validateCode: async (req, res) => {
+    const { email, code } = req.allParams();
     if (email && code) {
       try {
-        const adminuser = await AdminUsers.findOne({email:email,code:code});
-        if(adminuser){
+        const adminuser = await AdminUsers.findOne({
+          email: email,
+          code: code,
+        });
+        if (adminuser) {
           if (adminuser.code == code) {
             let newCode = CodeService.generate();
             const password = CryptoService.decrypt(adminuser.password);
-            await AdminUsers.update({email: email, code: code}, {code: newCode});
-            EmailService.sendPass({email, name: adminuser.name, password});
-            return res.status(200).json({success: true});
-          }else{
-            return res.status(403).json({message:'403 Forbidden'});
-          }          
+            await AdminUsers.update(
+              { email: email, code: code },
+              { code: newCode },
+            );
+            EmailService.sendPass({ email, name: adminuser.name, password });
+            return res.status(200).json({ success: true });
+          } else {
+            return res.status(403).json({ message: '403 Forbidden' });
+          }
         } else {
-          return res.status(404).json({message:'Invalid Admin'});
+          return res.status(404).json({ message: 'Invalid Admin' });
         }
-      } catch(e) {
+      } catch (e) {
         console.error(e);
         return res.status(500).send(e);
       }
     } else {
-      return res.status(400).json({message:'Missing arguments'});
+      return res.status(400).json({ message: 'Missing arguments' });
     }
   },
-  activate: async(req, res) => {
-    try{
+  activate: async (req, res) => {
+    try {
       const { id } = req.allParams();
-      if(id){
-        let user = await AdminUsers.findOne({id});
-        if(user){
-          user = await AdminUsers.updateOne({id}).set({activated: true});
+      if (id) {
+        let user = await AdminUsers.findOne({ id });
+        if (user) {
+          user = await AdminUsers.updateOne({ id }).set({ activated: true });
           return res.status(200).json(user);
         }
-        return res.status(404).json({message:'User not found'});
+        return res.status(404).json({ message: 'User not found' });
       }
-      return res.status(400).json({message:'Missing arguments'});
-    }catch (error){
-      return res.status(500).json({message: error.message});
+      return res.status(400).json({ message: 'Missing arguments' });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
     }
   },
-  deactivate: async(req, res) => {
-    try{
+  deactivate: async (req, res) => {
+    try {
       const { id } = req.allParams();
-      if(id){
-        let user = await AdminUsers.findOne({id});
-        if(user){
-          user = await AdminUsers.updateOne({id}).set({activated: false});
+      if (id) {
+        let user = await AdminUsers.findOne({ id });
+        if (user) {
+          user = await AdminUsers.updateOne({ id }).set({ activated: false });
           return res.status(200).json(user);
         }
-        return res.status(404).json({message:'User not found'});
+        return res.status(404).json({ message: 'User not found' });
       }
-      return res.status(400).json({message:'Missing arguments'});
-    }catch (error){
-      return res.status(500).json({message: error.message});
+      return res.status(400).json({ message: 'Missing arguments' });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
     }
   },
-  updateProfile: async(req,res) => {
+  updateProfile: async (req, res) => {
     const { data } = req.allParams();
-    const adminUser = await AdminUsers.findOne({id:req.session.user.id});
-    if(adminUser){
-      if(data){
-        try{
-          if(data.id){
+    const adminUser = await AdminUsers.findOne({ id: req.session.user.id });
+    if (adminUser) {
+      if (data) {
+        try {
+          if (data.id) {
             delete data.id;
           }
-          if(data.password){
+          if (data.password) {
             delete data.password;
           }
-          if(data.token){
+          if (data.token) {
             delete data.token;
           }
-          const userUpdated = await AdminUsers.updateOne({id:req.session.user.id}).set(data);
+          const userUpdated = await AdminUsers.updateOne({
+            id: req.session.user.id,
+          }).set(data);
           return res.status(200).json(userUpdated);
-        }catch(error){
-          return res.status(500).json({message: error.message});
+        } catch (error) {
+          return res.status(500).json({ message: error.message });
         }
-      }else{
-        return res.status(400).json({message: 'Missing arguments'});
+      } else {
+        return res.status(400).json({ message: 'Missing arguments' });
       }
-    }else{
-      return res.status(404).json({message: 'Invalid admin user'});
+    } else {
+      return res.status(404).json({ message: 'Invalid admin user' });
     }
-
-
   },
 };
