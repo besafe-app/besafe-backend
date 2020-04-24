@@ -78,7 +78,7 @@ module.exports = {
       return res.status(204).send();
     } catch (e) {
       console.error(e);
-      return res.status(200).send(e);
+      return res.status(500).json(e);
     }
   },
   setConditionAndUser: async (req, res) => {
@@ -107,7 +107,7 @@ module.exports = {
       }
     } catch (e) {
       console.error(e);
-      return res.status(200).send(e);
+      return res.status(500).json(e);
     }
   },
 };
