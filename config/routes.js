@@ -413,7 +413,7 @@ module.exports.routes = {
       produces: ['application/json'],
       responses: {
         '200': {
-          description: 'Condition created successfully',
+          description: 'All Conditions',
           schema: {
             type: 'object',
             properties: {
@@ -425,22 +425,13 @@ module.exports.routes = {
             }
           }
         },
-        '400': {
-          description: 'Missing parameters',
+        '204': {
+          description: 'No content',
         },
         '500': {
           description: 'Internal server error',
         },
       },
-      parameters: [
-        {
-          in: 'query',
-          name: 'language',
-          required: false,
-          type: 'string',
-          description: 'Language of conditions',
-        },
-      ],
     },
   },
 
