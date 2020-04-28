@@ -10,15 +10,25 @@ module.exports = {
     const { name } = req.allParams();
     const language = req.param('language') || 'pt';
     try {
-      if (name && language) {
-        const conditions = await Conditions.create({
+      if(name && language){
+        const conditionExist = await Conditions.findOne({
           name: name,
           language: language,
-        }).fetch();
-        return res.status(201).json(conditions);
-      } else {
+        });
+        if (!conditionExist) {
+          const conditions = await Conditions.create({
+            name: name,
+            language: language,
+          }).fetch();
+          return res.status(201).json(conditions);
+        } else {
+          return res.status(200).json({message:'Conditions already registered'});
+        }
+      }
+      else{
         return res.status(400).json({ message: 'Missing arguments' });
       }
+      
     } catch (e) {
       console.error(e);
       return res.status(200).send(e);
