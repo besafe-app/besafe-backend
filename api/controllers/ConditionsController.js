@@ -21,13 +21,10 @@ module.exports = {
             language: language,
           }).fetch();
           return res.status(201).json(conditions);
-        } else {
-          return res.status(200).json({message:'Conditions already registered'});
         }
+        return res.status(200).json({message:'Conditions already registered'});
       }
-      else{
-        return res.status(400).json({ message: 'Missing arguments' });
-      }
+      return res.status(400).json({ message: 'Missing arguments' });
       
     } catch (e) {
       console.error(e);
