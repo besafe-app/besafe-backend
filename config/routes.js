@@ -511,7 +511,7 @@ module.exports.routes = {
     },
   },
 
-  'GET /api/v1/assesment': {
+  'GET /api/v1/assessment': {
     controller: 'AssessmentsController',
     action: 'list',
     swagger: {
@@ -522,6 +522,9 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Assessment found',
+        },
+        '204': {
+          description: 'No assessments found',
         },
         '404': {
           description: 'Assessment not found',
@@ -543,10 +546,13 @@ module.exports.routes = {
       produces: ['application/json'],
       responses: {
         '200': {
+          description: 'Assessments already registered!',
+        },
+        '201': {
           description: 'Assessment created successfully',
         },
         '400': {
-          description: 'Missing parameters',
+          description: 'Missing arguments',
         },
         '500': {
           description: 'Internal server error',
@@ -568,7 +574,7 @@ module.exports.routes = {
     },
   },
 
-  'POST /api/v1/users/assessment': {
+  'POST /api/v1/users/assessments': {
     controller: 'AssessmentsController',
     action: 'setUserAssessment',
     swagger: {
@@ -577,8 +583,8 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
-          description: 'Assessment created successfully',
+        '201': {
+          description: 'Assesment register for user successfully',
         },
         '400': {
           description: 'Missing parameters',
@@ -595,7 +601,8 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            assessment: { type: 'string' },
+            assessments: { type: 'number' },
+            date: { type: 'string' }
           },
         },
       ],
@@ -1325,6 +1332,115 @@ module.exports.routes = {
           description: 'city name',
         },
       ]
+    },
+  },
+  'DELETE /api/v1/users/assessments': {
+    controller: 'AssessmentsController',
+    action: 'deleteByUser',
+    swagger: {
+      tag: ['assessment-set'],
+      summary: 'Set assessment for user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'User assesments deleted successfully',
+        },
+        '400': {
+          description: 'Missing parameters',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            ids: { type: 'number' },
+          },
+        },
+      ],
+    },
+  },
+  'DELETE /api/v1/assessment/:id': {
+    controller: 'AssessmentsController',
+    action: 'delete',
+    swagger: {
+      tag: ['assessment-create'],
+      summary: 'Create assessment',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Assessments already registered!',
+        },
+        '400': {
+          description: 'Missing arguments',
+        },
+        '404': {
+          description: 'Assessments not found',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'string',
+          description: 'Assesment id',
+        },
+      ],
+    },
+  },
+  'PUT /api/v1/assessment/:id': {
+    controller: 'AssessmentsController',
+    action: 'update',
+    swagger: {
+      tag: ['assessment-create'],
+      summary: 'Create assessment',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Assessments updated!',
+          schema: {
+            type: 'object',
+            properties: {
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'int', example: 1586723387394 },
+              updatedAt: { type: 'int', example: 1586723387394 },
+              id: { type: 'int', example: 1 },
+              name: { type: 'string', example: 'Febre' },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing arguments',
+        },
+        '404': {
+          description: 'Assessments not found',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'string',
+          description: 'Assesment id',
+        },
+      ],
     },
   },
   /***************************************************************************
