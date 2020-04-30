@@ -522,6 +522,14 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Assessment found',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt'}
+            }
+          }
         },
         '204': {
           description: 'No assessments found',
@@ -550,6 +558,14 @@ module.exports.routes = {
         },
         '201': {
           description: 'Assessment created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt'}
+            }
+          }
         },
         '400': {
           description: 'Missing arguments',
@@ -602,7 +618,9 @@ module.exports.routes = {
           description: 'Body content',
           properties: {
             assessments: { type: 'number' },
-            date: { type: 'string' }
+            date: { type: 'string' },
+            lat: { type: 'string' },
+            long: { type: 'string' },
           },
         },
       ],
@@ -620,6 +638,18 @@ module.exports.routes = {
       responses: {
         '200': {
           description: 'Assessments found',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              user: { type: 'number', example: 1 },
+              date: { type: 'string', example: '2015-03-25T12:00:00Z'},
+              value: { type: 'number', example: 0 },
+              lat: { type: 'string', example: '-19.920158' },
+              long: { type: 'string', example: '-43.921271' },
+              assessment: { type: 'number', example: 1 },
+            }
+          }
         },
         '404': {
           description: 'Assessments not found',
@@ -1377,7 +1407,7 @@ module.exports.routes = {
       produces: ['application/json'],
       responses: {
         '200': {
-          description: 'Assessments already registered!',
+          description: 'Assessments deleted!',
         },
         '400': {
           description: 'Missing arguments',
@@ -1441,6 +1471,33 @@ module.exports.routes = {
           description: 'Assesment id',
         },
       ],
+    },
+  },
+  'GET /api/v1/users/assessments/check': {
+    controller: 'AssessmentsController',
+    action: 'check',
+    swagger: {
+      tag: ['assessment-set'],
+      summary: 'Set assessment for user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        '200': {
+          description: 'Check user status',
+          schema: {
+            type: 'object',
+            properties: {
+              message: { type: 'boolean', example: true },
+            }
+          }
+        },
+        '400': {
+          description: 'Missing parameters',
+        },
+        '500': {
+          description: 'Internal server error',
+        },
+      },
     },
   },
   /***************************************************************************

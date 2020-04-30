@@ -38,7 +38,7 @@ module.exports = {
       }
     } catch (e) {
       console.error(e);
-      return res.status(200).send(e);
+      return res.status(500).json(e);
     }
   },
   update: async (req, res) => {
@@ -61,7 +61,7 @@ module.exports = {
       }
     } catch (e) {
       console.error(e);
-      return res.status(500).send(e);
+      return res.status(500).json(e);
     }
   },
   delete: async (req, res) => {
@@ -84,7 +84,7 @@ module.exports = {
       }
     } catch (e) {
       console.error(e);
-      return res.status(500).send(e);
+      return res.status(500).json(e);
     }
   },
   setUserAssessment: async (req, res) => {
@@ -115,7 +115,7 @@ module.exports = {
           long: long
         }).fetch();
 
-        return res.status(201).json({message: 'Assesment register for user successfully'});
+        return res.status(201).json({message: 'Assesments register for user successfully'});
       }else{
         return res.status(400).json({message: 'Missing Arguments'});
       }
@@ -137,7 +137,7 @@ module.exports = {
       }
     } catch (e) {
       console.error(e);
-      return res.status(500).send(e);
+      return res.status(500).json(e);
     }
   },
   deleteByUser: async (req, res) => {
@@ -163,7 +163,27 @@ module.exports = {
       return res.status(400).json({message: 'Missing Arguments'});
     }catch(e){
       console.error(e);
-      return res.status(500).send(e);
+      return res.status(500).json(e);
+    }
+  },
+  check: async (req, res) => {
+    try{
+      const userAssessments =  await UserAssessments.find({
+        where: { user: req.session.user.id },
+        sort: 'createdAt ASC'
+      });
+      if(userAssessments.length){
+        const date = new Date(userAssessments[0].date);
+        const today = new Date();
+        if(date.getDate() >= today.getDate()){
+          return res.status(200).json({ message: true });
+        }
+        return res.status(200).json({ message: false });
+      }
+      return res.status(404).json({ message: 'User has not registered any updates' });  
+    }catch(e){
+      console.error(e);
+      return res.status(500).json(e);
     }
   }
 };

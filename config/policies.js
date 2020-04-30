@@ -36,6 +36,7 @@ module.exports.policies = {
     setUserAssessment: 'isAuthorized',
     getByUser: 'isAuthorized',
     deleteByUser: 'isAuthorized',
+    check: 'isAuthorized',
     '*': true
   },
   GeoController: {
