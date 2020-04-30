@@ -81,11 +81,13 @@ module.exports = {
           } else {
             const code = CodeService.generate();
             const message = `Be safe, aqui está o seu código verificador: ${code}`;
-            await SmsService.send(adminUser.phone, message, async () => {
-              await AdminUsers.updateOne({ id: adminUser.id }).set({
-                code: code,
-              });
+
+            SmsService.send(adminUser.phone, message);
+
+            await AdminUsers.updateOne({ id: adminUser.id }).set({
+              code: code,
             });
+
             return res.status(200).json({ message: 'SMS sent' });
           }
         } else {

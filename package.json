@@ -9,6 +9,7 @@
 		"@sailshq/connect-redis": "^3.2.1",
 		"@sailshq/lodash": "^3.10.3",
 		"@sailshq/socket.io-redis": "^5.2.0",
+		"clickatell-platform": "^2.0.11",
 		"crypto-js": "^4.0.0",
 		"dotenv": "^8.2.0",
 		"grunt": "1.0.4",

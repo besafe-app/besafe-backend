@@ -134,3 +134,4 @@ lib-cov
 
 package-lock.json
 yarn.lock
+.env
