@@ -44,10 +44,8 @@ module.exports = {
     const { name, phone } = req.allParams();
     if (name && phone) {
       try {
-        const targetUser = await Users.findOne({
-          nickname: name,
-          phone: phone,
-        });
+        
+        const targetUser = await Users.findOne({ phone: phone });
         if (!targetUser) {
           const code = CodeService.generate();
           const message = `Be safe, aqui está o seu código verificador de cadastro: ${code}`;
