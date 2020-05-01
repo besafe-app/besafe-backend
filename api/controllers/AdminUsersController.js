@@ -1,17 +1,17 @@
 module.exports = {
   get: async (req, res) => {
-    //Get the user logged in the session and displays info about him
     try {
-      const id = req.session.user.id;
+      const { id } = req.session.user;
       if (id) {
-        const adminUser = await AdminUsers.findOne({ id: id });
+        const adminUser = await AdminUsers.findOne({ id });
         if (adminUser) {
           return res.status(200).json(adminUser);
         }
-      } else {
-        return res.status(400).json({ message: 'Missing arguments' });
       }
+
+      return res.status(400).json({ message: 'Missing arguments' });
     } catch (error) {
+      console.error(error);
       return res.status(500).json(error);
     }
   },
@@ -19,7 +19,7 @@ module.exports = {
     const { email, password, phone, name, gender, birthdate } = req.allParams();
     try {
       if (email && password) {
-        const targetUser = await AdminUsers.findOne({ email: email });
+        const targetUser = await AdminUsers.findOne({ email });
         if (!targetUser) {
           const encriptedPass = CryptoService.encrypt(password);
           const user = await AdminUsers.create({
@@ -32,7 +32,7 @@ module.exports = {
           }).fetch();
           const plainUser = { ...user };
           const token = JwtService.issue(plainUser);
-          await AdminUsers.updateOne({ id: user.id }).set({ token: token });
+          await AdminUsers.updateOne({ id: user.id }).set({ token });
           delete plainUser.password;
           plainUser.token = token;
           return res.status(201).json(plainUser);
@@ -41,7 +41,7 @@ module.exports = {
       }
       return res.status(400).json({ message: 'Missing arguments' });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       const status = error.code || error.status || 500;
       return res.status(status).json(error);
     }
@@ -49,7 +49,7 @@ module.exports = {
   auth: async (req, res) => {
     try {
       const { email, password } = req.allParams();
-      const user = await AdminUsers.findOne({ email: email });
+      const user = await AdminUsers.findOne({ email });
       if (user) {
         const decryptedPass = CryptoService.decrypt(user.password);
         if (password === decryptedPass && user.activated) {
@@ -61,6 +61,7 @@ module.exports = {
       }
       return res.status(422).json({ message: 'User or password is invalid' });
     } catch (error) {
+      console.error(error);
       return res.status(500).json({ message: error.message });
     }
   },
@@ -68,35 +69,30 @@ module.exports = {
     try {
       const { email, type } = req.allParams();
       if (email && type) {
-        const adminUser = await AdminUsers.findOne({ email: email });
+        const adminUser = await AdminUsers.findOne({ email });
         if (adminUser) {
-          if (type == 1) {
+          if (type === 1) {
             const code = CodeService.generate();
             EmailService.sendCode({ email, name: adminUser.name, code });
-            await AdminUsers.update(
-              { email: email, id: adminUser.id },
-              { code: code },
-            );
+            await AdminUsers.update({ email, id: adminUser.id }, { code });
             return res.status(200).json({ message: 'Email sent' });
-          } else {
-            const code = CodeService.generate();
-            const message = `Be safe, aqui está o seu código verificador: ${code}`;
-
-            SmsService.send(adminUser.phone, message);
-
-            await AdminUsers.updateOne({ id: adminUser.id }).set({
-              code: code,
-            });
-
-            return res.status(200).json({ message: 'SMS sent' });
           }
-        } else {
-          return res.status(404).json({ message: 'Email not exists' });
+          const code = CodeService.generate();
+          const message = `Be safe, aqui está o seu código verificador: ${code}`;
+
+          SmsService.send(adminUser.phone, message);
+
+          await AdminUsers.updateOne({ id: adminUser.id }).set({
+            code,
+          });
+
+          return res.status(200).json({ message: 'SMS sent' });
         }
-      } else {
-        return res.status(400).json({ message: 'Missing arguments' });
+        return res.status(404).json({ message: 'Email not exists' });
       }
+      return res.status(400).json({ message: 'Missing arguments' });
     } catch (error) {
+      console.error(error);
       return res.status(500).json({ message: error.message });
     }
   },
@@ -105,25 +101,20 @@ module.exports = {
     if (email && code) {
       try {
         const adminuser = await AdminUsers.findOne({
-          email: email,
-          code: code,
+          email,
+          code,
         });
         if (adminuser) {
-          if (adminuser.code == code) {
-            let newCode = CodeService.generate();
+          if (adminuser.code === code) {
+            const newCode = CodeService.generate();
             const password = CryptoService.decrypt(adminuser.password);
-            await AdminUsers.update(
-              { email: email, code: code },
-              { code: newCode },
-            );
+            await AdminUsers.update({ email, code }, { code: newCode });
             EmailService.sendPass({ email, name: adminuser.name, password });
             return res.status(200).json({ success: true });
-          } else {
-            return res.status(403).json({ message: '403 Forbidden' });
           }
-        } else {
-          return res.status(404).json({ message: 'Invalid Admin' });
+          return res.status(403).json({ message: '403 Forbidden' });
         }
+        return res.status(404).json({ message: 'Invalid Admin' });
       } catch (e) {
         console.error(e);
         return res.status(500).send(e);
@@ -145,6 +136,7 @@ module.exports = {
       }
       return res.status(400).json({ message: 'Missing arguments' });
     } catch (error) {
+      console.error(error);
       return res.status(500).json({ message: error.message });
     }
   },
@@ -161,6 +153,7 @@ module.exports = {
       }
       return res.status(400).json({ message: 'Missing arguments' });
     } catch (error) {
+      console.error(error);
       return res.status(500).json({ message: error.message });
     }
   },

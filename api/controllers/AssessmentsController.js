@@ -11,12 +11,11 @@ module.exports = {
       const assesments = await Assesments.find({}).sort('name');
       if (assesments.length > 0) {
         return res.status(200).json(assesments);
-      } else {
-        return res.status(204).send();
       }
+      return res.status(204).send();
     } catch (e) {
       console.error(e);
-      res.status(500).send(e);
+      return res.status(500).send(e);
     }
   },
   create: async (req, res) => {
@@ -25,13 +24,12 @@ module.exports = {
     try {
       if (name && language) {
         const assesments = await Assessments.create({
-          name: name,
-          language: language,
+          name,
+          language,
         }).fetch();
         return res.status(201).json(assesments);
-      } else {
-        return res.status(400).json({ message: 'Missing arguments' });
       }
+      return res.status(400).json({ message: 'Missing arguments' });
     } catch (e) {
       console.error(e);
       return res.status(200).send(e);
@@ -43,7 +41,7 @@ module.exports = {
       assessments.forEach(async (assessment) => {
         await UserAssessments.create({
           user: req.session.user.id,
-          assessment: assessment,
+          assessment,
         });
       });
       return res.status(204).send();
@@ -59,9 +57,8 @@ module.exports = {
       }).populate('assessment');
       if (assessments.length > 0) {
         return res.status(200).json(assessments);
-      } else {
-        return res.status(404).json({ message: 'Assessments not found' });
       }
+      return res.status(404).json({ message: 'Assessments not found' });
     } catch (e) {
       console.error(e);
       return res.status(200).send(e);
