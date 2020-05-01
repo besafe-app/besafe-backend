@@ -33,8 +33,8 @@ module.exports.routes = {
             type: 'object',
             properties: {
               message: { type: 'string', example: 'User already registred' },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -91,8 +91,8 @@ module.exports.routes = {
               gender: { type: 'string', example: 'male' },
               token: { type: 'string', example: 'token_common_user' },
               activated: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -139,8 +139,8 @@ module.exports.routes = {
             type: 'object',
             properties: {
               message: { type: 'string', example: 'User already registred' },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -183,8 +183,8 @@ module.exports.routes = {
             type: 'object',
             properties: {
               token: { type: 'string', example: 'token_common_user' },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -239,8 +239,8 @@ module.exports.routes = {
               gender: { type: 'string', example: 'male' },
               token: { type: 'string', example: 'token_common_user' },
               activated: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -288,8 +288,8 @@ module.exports.routes = {
               updatedAt: { type: 'int', example: 1586723387394 },
               id: { type: 'int', example: '' },
               name: { type: 'string', example: 123 },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -298,7 +298,8 @@ module.exports.routes = {
           description: 'Internal server error',
         },
       },
-      parameters: [,
+      parameters: [
+        ,
         {
           in: 'body',
           name: 'data',
@@ -422,8 +423,8 @@ module.exports.routes = {
               language: { type: 'string', example: 'pt' },
               createdAt: { type: 'string', example: 1586293846607 },
               updatedAt: { type: 'string', example: 1586366152316 },
-            }
-          }
+            },
+          },
         },
         '204': {
           description: 'No content',
@@ -487,14 +488,17 @@ module.exports.routes = {
               user: { type: 'int', example: 0 },
               createdAt: { type: 'string', example: 1586726020833 },
               updatedAt: { type: 'string', example: 1586726020833 },
-              condition: { type: 'object', properties: {
-                createdAt: { type: 'int', example: 1586293846607 },
-                updatedAt: { type: 'int', example: 1586366152316 },
-                id: { type: 'int', example: 0 },
-                name: { type: 'string', example: 'Febre' },
-              } },
-            }
-          }
+              condition: {
+                type: 'object',
+                properties: {
+                  createdAt: { type: 'int', example: 1586293846607 },
+                  updatedAt: { type: 'int', example: 1586366152316 },
+                  id: { type: 'int', example: 0 },
+                  name: { type: 'string', example: 'Febre' },
+                },
+              },
+            },
+          },
         },
         '404': {
           description: 'Conditions not found',
@@ -638,20 +642,20 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              activated: {type: 'boolean', example: true},
-              createdAt: {type: 'int', example: 1586371531741},
-              updatedAt: {type: 'int', example: 1586371540704},
-              id: {type: 'int', example: 0},
-              cpf: {type: 'string', example: '13058085241'},
-              email: {type: 'string', example: 'example@example.com.br'},
-              password: {type: 'string', example: '****'},
-              phone: {type: 'string', example: '9312312123'},
-              nickname: {type: 'string', example: 'joseph'},
-              code: {type: 'int', example: 240638},
-              gender: {type: 'string', example: ['male','female','other']},
-              token: {type: 'string', example: 'token_common_user'},
-            }
-          }
+              activated: { type: 'boolean', example: true },
+              createdAt: { type: 'int', example: 1586371531741 },
+              updatedAt: { type: 'int', example: 1586371540704 },
+              id: { type: 'int', example: 0 },
+              cpf: { type: 'string', example: '13058085241' },
+              email: { type: 'string', example: 'example@example.com.br' },
+              password: { type: 'string', example: '****' },
+              phone: { type: 'string', example: '9312312123' },
+              nickname: { type: 'string', example: 'joseph' },
+              code: { type: 'int', example: 240638 },
+              gender: { type: 'string', example: ['male', 'female', 'other'] },
+              token: { type: 'string', example: 'token_common_user' },
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -672,6 +676,8 @@ module.exports.routes = {
           properties: {
             name: { type: 'string' },
             phone: { type: 'string' },
+            code: { type: 'number' },
+            deviceToken: { type: 'string' },
           },
         },
       ],
@@ -694,8 +700,8 @@ module.exports.routes = {
               id: { type: 'int', example: 0 },
               nickname: { type: 'string', example: 'José Alberto' },
               activated: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -738,8 +744,8 @@ module.exports.routes = {
               id: { type: 'int', example: 0 },
               nickname: { type: 'string', example: 'José Alberto' },
               activated: { type: 'boolean', example: false },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -887,8 +893,8 @@ module.exports.routes = {
                 example: '',
               },
               token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -945,18 +951,18 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              active: {type: 'boolean', example: true},
-              createdAt: {type: 'int', example: 1586371531741},
-              updatedAt: {type: 'int', example: 1586371540704},
-              id: {type: 'int', example: 0},
-              name: {type: 'string', example: 'José da Silva'},
-              phone: {type: 'string', example: '9312312123'},
-              nickname: {type: 'string', example: 'joseph'},
-              code: {type: 'int', example: 240638},
-              gender: {type: 'string', example: ['male','female','other']},
-              token: {type: 'string', example: 'token_common_user'},
-            }
-          }
+              active: { type: 'boolean', example: true },
+              createdAt: { type: 'int', example: 1586371531741 },
+              updatedAt: { type: 'int', example: 1586371540704 },
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'José da Silva' },
+              phone: { type: 'string', example: '9312312123' },
+              nickname: { type: 'string', example: 'joseph' },
+              code: { type: 'int', example: 240638 },
+              gender: { type: 'string', example: ['male', 'female', 'other'] },
+              token: { type: 'string', example: 'token_common_user' },
+            },
+          },
         },
         '400': {
           description: 'Missing arguments',
@@ -981,20 +987,20 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              active: {type: 'boolean', example: true},
-              createdAt: {type: 'int', example: 1586371531741},
-              updatedAt: {type: 'int', example: 1586371540704},
-              id: {type: 'int', example: 0},
-              cpf: {type: 'string', example: '13058085241'},
-              email: {type: 'string', example: 'example@example.com.br'},
-              password: {type: 'string', example: '****'},
-              phone: {type: 'string', example: '9312312123'},
-              nickname: {type: 'string', example: 'joseph'},
-              code: {type: 'int', example: 240638},
-              gender: {type: 'string', example: ['male','female','other']},
-              token: {type: 'string', example: 'token_common_user'},
-            }
-          }
+              active: { type: 'boolean', example: true },
+              createdAt: { type: 'int', example: 1586371531741 },
+              updatedAt: { type: 'int', example: 1586371540704 },
+              id: { type: 'int', example: 0 },
+              cpf: { type: 'string', example: '13058085241' },
+              email: { type: 'string', example: 'example@example.com.br' },
+              password: { type: 'string', example: '****' },
+              phone: { type: 'string', example: '9312312123' },
+              nickname: { type: 'string', example: 'joseph' },
+              code: { type: 'int', example: 240638 },
+              gender: { type: 'string', example: ['male', 'female', 'other'] },
+              token: { type: 'string', example: 'token_common_user' },
+            },
+          },
         },
         '404': {
           description: 'No common user has been registered',
@@ -1005,7 +1011,7 @@ module.exports.routes = {
       },
     },
   },
-  
+
   'POST /api/v1/web/users/recoveryGreenCard': {
     controller: 'AdminUsersController',
     action: 'recoveryGreenCard',
@@ -1020,9 +1026,9 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              success: {type: 'boolean', example: true}
-            }
-          }
+              success: { type: 'boolean', example: true },
+            },
+          },
         },
         '400': {
           description: 'Missing arguments',
@@ -1042,12 +1048,12 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            email: { type: 'string', example: "aa@aa.com.br" },
-            tipo: { type: 'int', example: "1: send email code; 0: send sms code" },
+            email: { type: 'string', example: 'aa@aa.com.br' },
+            tipo: { type: 'int', example: '1: send email code; 0: send sms code' },
           },
         },
       ],
-    }
+    },
   },
   'POST /api/v1/web/users/validateCode': {
     controller: 'AdminUsersController',
@@ -1063,9 +1069,9 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              success: {type: 'boolean', example: true}
-            }
-          }
+              success: { type: 'boolean', example: true },
+            },
+          },
         },
         '400': {
           description: 'Missing arguments',
@@ -1093,7 +1099,7 @@ module.exports.routes = {
           },
         },
       ],
-    }
+    },
   },
   'POST /api/v1/web/users/update': {
     controller: 'AdminUsersController',
@@ -1109,20 +1115,20 @@ module.exports.routes = {
           schema: {
             type: 'object',
             properties: {
-              active: {type: 'boolean', example: true},
-              createdAt: {type: 'int', example: 1586371531741},
-              updatedAt: {type: 'int', example: 1586371540704},
-              id: {type: 'int', example: 0},
-              cpf: {type: 'string', example: '13058085241'},
-              email: {type: 'string', example: 'example@example.com.br'},
-              password: {type: 'string', example: '****'},
-              phone: {type: 'string', example: '9312312123'},
-              nickname: {type: 'string', example: 'joseph'},
-              code: {type: 'int', example: 240638},
-              gender: {type: 'string', example: ['male','female','other']},
-              token: {type: 'string', example: 'token_common_user'},
-            }
-          }
+              active: { type: 'boolean', example: true },
+              createdAt: { type: 'int', example: 1586371531741 },
+              updatedAt: { type: 'int', example: 1586371540704 },
+              id: { type: 'int', example: 0 },
+              cpf: { type: 'string', example: '13058085241' },
+              email: { type: 'string', example: 'example@example.com.br' },
+              password: { type: 'string', example: '****' },
+              phone: { type: 'string', example: '9312312123' },
+              nickname: { type: 'string', example: 'joseph' },
+              code: { type: 'int', example: 240638 },
+              gender: { type: 'string', example: ['male', 'female', 'other'] },
+              token: { type: 'string', example: 'token_common_user' },
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -1165,8 +1171,8 @@ module.exports.routes = {
               id: { type: 'int', example: 0 },
               nickname: { type: 'string', example: 'José Alberto' },
               activated: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -1209,8 +1215,8 @@ module.exports.routes = {
               id: { type: 'int', example: 0 },
               nickname: { type: 'string', example: 'José Alberto' },
               activated: { type: 'boolean', example: false },
-            }
-          }
+            },
+          },
         },
         '400': {
           description: 'Missing parameters',
@@ -1267,7 +1273,7 @@ module.exports.routes = {
                 y: { type: 'string' },
                 geom: { type: 'string' },
               },
-            }
+            },
           },
         },
         '500': {
@@ -1324,7 +1330,7 @@ module.exports.routes = {
           type: 'string',
           description: 'city name',
         },
-      ]
+      ],
     },
   },
   /***************************************************************************

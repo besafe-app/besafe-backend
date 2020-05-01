@@ -6,41 +6,42 @@
  */
 
 module.exports = {
-
   attributes: {
-
     name: {
       type: 'string',
     },
     phone: {
       type: 'string',
-      required: true
+      required: true,
     },
     nickname: {
       type: 'string',
-      required: true
+      required: true,
     },
     code: {
       type: 'number',
-      defaultsTo: 0
+      defaultsTo: 0,
     },
     gender: {
       type: 'string',
-      isIn: ['male','female','other']
+      isIn: ['male', 'female', 'other'],
     },
     birthdate: {
       type: 'ref',
-      columnType: 'date'
+      columnType: 'date',
     },
     token: {
       type: 'string',
-      allowNull: null
+      allowNull: null,
     },
     activated: {
       type: 'boolean',
-      defaultsTo: true
+      defaultsTo: true,
+    },
+    deviceToken: {
+      type: 'string',
+      required: true,
+      field: 'device_token',
     },
   },
-
 };
-

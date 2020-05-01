@@ -7,16 +7,12 @@
 
 module.exports = {
   getAll: async (req, res) => {
-    //GET ALL USERS
-    // authentication will be required in the future
     try {
       let users = await Users.find();
       if (users.length) {
         return res.status(200).json(users);
       } else {
-        return res
-          .status(404)
-          .json({ message: 'No common user has been registered' });
+        return res.status(404).json({ message: 'No common user has been registered' });
       }
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -44,7 +40,6 @@ module.exports = {
     const { name, phone } = req.allParams();
     if (name && phone) {
       try {
-        
         const targetUser = await Users.findOne({ phone: phone });
         if (!targetUser) {
           const code = CodeService.generate();
@@ -84,12 +79,9 @@ module.exports = {
           return res.status(200).json({ message: 'SMS sent' });
         } catch (e) {
           console.error(e);
-          return res
-            .status(e.status)
-            .json({
-              message:
-                'Error sending SMS, please confirm that your phone is correct',
-            });
+          return res.status(e.status).json({
+            message: 'Error sending SMS, please confirm that your phone is correct',
+          });
         }
       } else {
         return res.status(404).json({ message: 'User not found' });
@@ -136,20 +128,23 @@ module.exports = {
 
   auth: async (req, res) => {
     try {
-      const { phone, name, code } = req.allParams();
+      const { phone, name, code, deviceToken } = req.allParams();
+
       const user = await Users.findOne({
         phone: phone,
         nickname: name,
         code: code,
       });
+
       if (user) {
         if (user.code !== 0 && user.token && user.activated) {
+          await User.updateOne({ id: user.id }).set({ deviceToken });
           return res.status(200).json(user);
         }
-        return res
-          .status(401)
-          .json({ message: 'User is not verified or activated' });
+
+        return res.status(401).json({ message: 'User is not verified or activated' });
       }
+
       return res.status(404).json({ message: 'User not found' });
     } catch (error) {
       return res.status(500).json({ message: error.message });
