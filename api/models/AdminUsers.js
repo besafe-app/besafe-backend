@@ -10,7 +10,7 @@ module.exports = {
     email: {
       type: 'string',
       required: true,
-      unique: true
+      unique: true,
     },
     password: {
       type: 'string',
@@ -36,11 +36,11 @@ module.exports = {
     },
     code: {
       type: 'number',
-      defaultsTo: 0
+      defaultsTo: 0,
     },
     activated: {
       type: 'boolean',
-      defaultsTo: true
+      defaultsTo: true,
     },
   },
 };

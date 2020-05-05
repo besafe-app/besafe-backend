@@ -1,23 +1,4 @@
-/**
- * Route Mappings
- * (sails.config.routes)
- *
- * Your routes tell Sails what to do each time it receives a request.
- *
- * For more information on configuring custom routes, check out:
- * https://sailsjs.com/anatomy/config/routes-js
- */
-
 module.exports.routes = {
-  /***************************************************************************
-   *                                                                          *
-   * Make the view located at `views/homepage.ejs` your home page.            *
-   *                                                                          *
-   * (Alternatively, remove this and add an `index.html` file in your         *
-   * `assets` directory)                                                      *
-   *                                                                          *
-   ***************************************************************************/
-
   'GET /api/v1/users/check/:name/:phone': {
     controller: 'UsersController',
     action: 'check',
@@ -27,22 +8,22 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User and phone found',
           schema: {
             type: 'object',
             properties: {
               message: { type: 'string', example: 'User already registred' },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -78,7 +59,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '201': {
+        201: {
           description: 'User created successfully',
           schema: {
             type: 'object',
@@ -91,16 +72,16 @@ module.exports.routes = {
               gender: { type: 'string', example: 'male' },
               token: { type: 'string', example: 'token_common_user' },
               activated: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -133,22 +114,22 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'SMS sent successfully',
           schema: {
             type: 'object',
             properties: {
               message: { type: 'string', example: 'User already registred' },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -177,22 +158,22 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'SMS validate successfully',
           schema: {
             type: 'object',
             properties: {
               token: { type: 'string', example: 'token_common_user' },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -226,7 +207,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Updated successfully',
           schema: {
             type: 'object',
@@ -239,16 +220,16 @@ module.exports.routes = {
               gender: { type: 'string', example: 'male' },
               token: { type: 'string', example: 'token_common_user' },
               activated: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -278,7 +259,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition created successfully',
           schema: {
             type: 'object',
@@ -288,17 +269,17 @@ module.exports.routes = {
               updatedAt: { type: 'int', example: 1586723387394 },
               id: { type: 'int', example: '' },
               name: { type: 'string', example: 123 },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
-      parameters: [,
+      parameters: [
         {
           in: 'body',
           name: 'data',
@@ -322,7 +303,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition updated successfully',
           schema: {
             type: 'object',
@@ -333,13 +314,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'Condition not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -366,7 +347,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition deleted successfully',
           schema: {
             type: 'object',
@@ -379,13 +360,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'Condition not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -412,7 +393,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'All Conditions',
           schema: {
             type: 'object',
@@ -422,13 +403,13 @@ module.exports.routes = {
               language: { type: 'string', example: 'pt' },
               createdAt: { type: 'string', example: 1586293846607 },
               updatedAt: { type: 'string', example: 1586366152316 },
-            }
-          }
+            },
+          },
         },
-        '204': {
+        204: {
           description: 'No content',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -444,13 +425,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition created successfully',
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -478,7 +459,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Conditions found',
           schema: {
             type: 'object',
@@ -487,19 +468,22 @@ module.exports.routes = {
               user: { type: 'int', example: 0 },
               createdAt: { type: 'string', example: 1586726020833 },
               updatedAt: { type: 'string', example: 1586726020833 },
-              condition: { type: 'object', properties: {
-                createdAt: { type: 'int', example: 1586293846607 },
-                updatedAt: { type: 'int', example: 1586366152316 },
-                id: { type: 'int', example: 0 },
-                name: { type: 'string', example: 'Febre' },
-              } },
-            }
-          }
+              condition: {
+                type: 'object',
+                properties: {
+                  createdAt: { type: 'int', example: 1586293846607 },
+                  updatedAt: { type: 'int', example: 1586366152316 },
+                  id: { type: 'int', example: 0 },
+                  name: { type: 'string', example: 'Febre' },
+                },
+              },
+            },
+          },
         },
-        '404': {
+        404: {
           description: 'Conditions not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -520,13 +504,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Assessment found',
         },
-        '404': {
+        404: {
           description: 'Assessment not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -542,13 +526,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Assessment created successfully',
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -577,13 +561,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Assessment created successfully',
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -611,13 +595,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Assessments found',
         },
-        '404': {
+        404: {
           description: 'Assessments not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -633,31 +617,31 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition created successfully',
           schema: {
             type: 'object',
             properties: {
-              activated: {type: 'boolean', example: true},
-              createdAt: {type: 'int', example: 1586371531741},
-              updatedAt: {type: 'int', example: 1586371540704},
-              id: {type: 'int', example: 0},
-              cpf: {type: 'string', example: '13058085241'},
-              email: {type: 'string', example: 'example@example.com.br'},
-              password: {type: 'string', example: '****'},
-              phone: {type: 'string', example: '9312312123'},
-              nickname: {type: 'string', example: 'joseph'},
-              code: {type: 'int', example: 240638},
-              gender: {type: 'string', example: ['male','female','other']},
-              token: {type: 'string', example: 'token_common_user'},
-            }
-          }
+              activated: { type: 'boolean', example: true },
+              createdAt: { type: 'int', example: 1586371531741 },
+              updatedAt: { type: 'int', example: 1586371540704 },
+              id: { type: 'int', example: 0 },
+              cpf: { type: 'string', example: '13058085241' },
+              email: { type: 'string', example: 'example@example.com.br' },
+              password: { type: 'string', example: '****' },
+              phone: { type: 'string', example: '9312312123' },
+              nickname: { type: 'string', example: 'joseph' },
+              code: { type: 'int', example: 240638 },
+              gender: { type: 'string', example: ['male', 'female', 'other'] },
+              token: { type: 'string', example: 'token_common_user' },
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -686,7 +670,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User activated successfully',
           schema: {
             type: 'object',
@@ -694,18 +678,18 @@ module.exports.routes = {
               id: { type: 'int', example: 0 },
               nickname: { type: 'string', example: 'José Alberto' },
               activated: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '404': {
+        404: {
           description: 'User not found',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -730,7 +714,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User deactivated successfully',
           schema: {
             type: 'object',
@@ -738,18 +722,18 @@ module.exports.routes = {
               id: { type: 'int', example: 0 },
               nickname: { type: 'string', example: 'José Alberto' },
               activated: { type: 'boolean', example: false },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '404': {
+        404: {
           description: 'User not found',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -775,7 +759,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition created successfully',
           schema: {
             type: 'object',
@@ -801,11 +785,11 @@ module.exports.routes = {
             },
           },
         },
-        '404': {
+        404: {
           description: 'User or password is invalid',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -835,7 +819,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User already registered',
           schema: {
             type: 'object',
@@ -861,7 +845,7 @@ module.exports.routes = {
             },
           },
         },
-        '201': {
+        201: {
           description: 'User created successfully',
           schema: {
             type: 'object',
@@ -887,13 +871,13 @@ module.exports.routes = {
                 example: '',
               },
               token: { type: 'string', example: '44wa4dw486w11aw6d1w' },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -940,28 +924,28 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Admin user found',
           schema: {
             type: 'object',
             properties: {
-              active: {type: 'boolean', example: true},
-              createdAt: {type: 'int', example: 1586371531741},
-              updatedAt: {type: 'int', example: 1586371540704},
-              id: {type: 'int', example: 0},
-              name: {type: 'string', example: 'José da Silva'},
-              phone: {type: 'string', example: '9312312123'},
-              nickname: {type: 'string', example: 'joseph'},
-              code: {type: 'int', example: 240638},
-              gender: {type: 'string', example: ['male','female','other']},
-              token: {type: 'string', example: 'token_common_user'},
-            }
-          }
+              active: { type: 'boolean', example: true },
+              createdAt: { type: 'int', example: 1586371531741 },
+              updatedAt: { type: 'int', example: 1586371540704 },
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'José da Silva' },
+              phone: { type: 'string', example: '9312312123' },
+              nickname: { type: 'string', example: 'joseph' },
+              code: { type: 'int', example: 240638 },
+              gender: { type: 'string', example: ['male', 'female', 'other'] },
+              token: { type: 'string', example: 'token_common_user' },
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing arguments',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -976,36 +960,36 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Users found',
           schema: {
             type: 'object',
             properties: {
-              active: {type: 'boolean', example: true},
-              createdAt: {type: 'int', example: 1586371531741},
-              updatedAt: {type: 'int', example: 1586371540704},
-              id: {type: 'int', example: 0},
-              cpf: {type: 'string', example: '13058085241'},
-              email: {type: 'string', example: 'example@example.com.br'},
-              password: {type: 'string', example: '****'},
-              phone: {type: 'string', example: '9312312123'},
-              nickname: {type: 'string', example: 'joseph'},
-              code: {type: 'int', example: 240638},
-              gender: {type: 'string', example: ['male','female','other']},
-              token: {type: 'string', example: 'token_common_user'},
-            }
-          }
+              active: { type: 'boolean', example: true },
+              createdAt: { type: 'int', example: 1586371531741 },
+              updatedAt: { type: 'int', example: 1586371540704 },
+              id: { type: 'int', example: 0 },
+              cpf: { type: 'string', example: '13058085241' },
+              email: { type: 'string', example: 'example@example.com.br' },
+              password: { type: 'string', example: '****' },
+              phone: { type: 'string', example: '9312312123' },
+              nickname: { type: 'string', example: 'joseph' },
+              code: { type: 'int', example: 240638 },
+              gender: { type: 'string', example: ['male', 'female', 'other'] },
+              token: { type: 'string', example: 'token_common_user' },
+            },
+          },
         },
-        '404': {
+        404: {
           description: 'No common user has been registered',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
     },
   },
-  
+
   'POST /api/v1/web/users/recoveryGreenCard': {
     controller: 'AdminUsersController',
     action: 'recoveryGreenCard',
@@ -1015,22 +999,22 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Admin user found',
           schema: {
             type: 'object',
             properties: {
-              success: {type: 'boolean', example: true}
-            }
-          }
+              success: { type: 'boolean', example: true },
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing arguments',
         },
-        '404': {
+        404: {
           description: 'Email not exists',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1042,12 +1026,15 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            email: { type: 'string', example: "aa@aa.com.br" },
-            tipo: { type: 'int', example: "1: send email code; 0: send sms code" },
+            email: { type: 'string', example: 'aa@aa.com.br' },
+            tipo: {
+              type: 'int',
+              example: '1: send email code; 0: send sms code',
+            },
           },
         },
       ],
-    }
+    },
   },
   'POST /api/v1/web/users/validateCode': {
     controller: 'AdminUsersController',
@@ -1058,25 +1045,25 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Admin user found',
           schema: {
             type: 'object',
             properties: {
-              success: {type: 'boolean', example: true}
-            }
-          }
+              success: { type: 'boolean', example: true },
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing arguments',
         },
-        '403': {
+        403: {
           description: '403 Forbidden',
         },
-        '404': {
+        404: {
           description: 'Invalid Admin',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1093,7 +1080,7 @@ module.exports.routes = {
           },
         },
       ],
-    }
+    },
   },
   'POST /api/v1/web/users/update': {
     controller: 'AdminUsersController',
@@ -1104,33 +1091,33 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '201': {
+        201: {
           description: 'Admin User updated successfully',
           schema: {
             type: 'object',
             properties: {
-              active: {type: 'boolean', example: true},
-              createdAt: {type: 'int', example: 1586371531741},
-              updatedAt: {type: 'int', example: 1586371540704},
-              id: {type: 'int', example: 0},
-              cpf: {type: 'string', example: '13058085241'},
-              email: {type: 'string', example: 'example@example.com.br'},
-              password: {type: 'string', example: '****'},
-              phone: {type: 'string', example: '9312312123'},
-              nickname: {type: 'string', example: 'joseph'},
-              code: {type: 'int', example: 240638},
-              gender: {type: 'string', example: ['male','female','other']},
-              token: {type: 'string', example: 'token_common_user'},
-            }
-          }
+              active: { type: 'boolean', example: true },
+              createdAt: { type: 'int', example: 1586371531741 },
+              updatedAt: { type: 'int', example: 1586371540704 },
+              id: { type: 'int', example: 0 },
+              cpf: { type: 'string', example: '13058085241' },
+              email: { type: 'string', example: 'example@example.com.br' },
+              password: { type: 'string', example: '****' },
+              phone: { type: 'string', example: '9312312123' },
+              nickname: { type: 'string', example: 'joseph' },
+              code: { type: 'int', example: 240638 },
+              gender: { type: 'string', example: ['male', 'female', 'other'] },
+              token: { type: 'string', example: 'token_common_user' },
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1157,7 +1144,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User activated successfully',
           schema: {
             type: 'object',
@@ -1165,18 +1152,18 @@ module.exports.routes = {
               id: { type: 'int', example: 0 },
               nickname: { type: 'string', example: 'José Alberto' },
               activated: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '404': {
+        404: {
           description: 'User not found',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -1201,7 +1188,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User deactivated successfully',
           schema: {
             type: 'object',
@@ -1209,18 +1196,18 @@ module.exports.routes = {
               id: { type: 'int', example: 0 },
               nickname: { type: 'string', example: 'José Alberto' },
               activated: { type: 'boolean', example: false },
-            }
-          }
+            },
+          },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '404': {
+        404: {
           description: 'User not found',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -1245,7 +1232,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'All Geographic data',
           schema: {
             type: 'array',
@@ -1267,10 +1254,10 @@ module.exports.routes = {
                 y: { type: 'string' },
                 geom: { type: 'string' },
               },
-            }
+            },
           },
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1286,7 +1273,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Get geographic data by city',
           schema: {
             type: 'object',
@@ -1309,10 +1296,10 @@ module.exports.routes = {
             },
           },
         },
-        '204': {
+        204: {
           description: 'No content',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1324,17 +1311,7 @@ module.exports.routes = {
           type: 'string',
           description: 'city name',
         },
-      ]
+      ],
     },
   },
-  /***************************************************************************
-   *                                                                          *
-   * More custom routes here...                                               *
-   * (See https://sailsjs.com/config/routes for examples.)                    *
-   *                                                                          *
-   * If a request to a URL doesn't match any of the routes in this file, it   *
-   * is matched against "shadow routes" (e.g. blueprint routes).  If it does  *
-   * not match any of those, it is matched against static assets.             *
-   *                                                                          *
-   ***************************************************************************/
 };
