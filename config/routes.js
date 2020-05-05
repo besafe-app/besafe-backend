@@ -656,6 +656,8 @@ module.exports.routes = {
           properties: {
             name: { type: 'string' },
             phone: { type: 'string' },
+            code: { type: 'number' },
+            deviceToken: { type: 'string' },
           },
         },
       ],

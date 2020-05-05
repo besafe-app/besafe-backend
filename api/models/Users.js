@@ -38,5 +38,10 @@ module.exports = {
       type: 'boolean',
       defaultsTo: true,
     },
+    deviceToken: {
+      type: 'string',
+      required: true,
+      field: 'device_token',
+    },
   },
 };
