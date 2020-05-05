@@ -1,23 +1,4 @@
-/**
- * Route Mappings
- * (sails.config.routes)
- *
- * Your routes tell Sails what to do each time it receives a request.
- *
- * For more information on configuring custom routes, check out:
- * https://sailsjs.com/anatomy/config/routes-js
- */
-
 module.exports.routes = {
-  /***************************************************************************
-   *                                                                          *
-   * Make the view located at `views/homepage.ejs` your home page.            *
-   *                                                                          *
-   * (Alternatively, remove this and add an `index.html` file in your         *
-   * `assets` directory)                                                      *
-   *                                                                          *
-   ***************************************************************************/
-
   'GET /api/v1/users/check/:name/:phone': {
     controller: 'UsersController',
     action: 'check',
@@ -27,7 +8,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User and phone found',
           schema: {
             type: 'object',
@@ -36,13 +17,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -78,7 +59,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '201': {
+        201: {
           description: 'User created successfully',
           schema: {
             type: 'object',
@@ -94,13 +75,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -133,7 +114,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'SMS sent successfully',
           schema: {
             type: 'object',
@@ -142,13 +123,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -177,7 +158,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'SMS validate successfully',
           schema: {
             type: 'object',
@@ -186,13 +167,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -226,7 +207,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Updated successfully',
           schema: {
             type: 'object',
@@ -242,13 +223,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -278,7 +259,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition created successfully',
           schema: {
             type: 'object',
@@ -291,15 +272,14 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
       parameters: [
-        ,
         {
           in: 'body',
           name: 'data',
@@ -323,7 +303,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition updated successfully',
           schema: {
             type: 'object',
@@ -334,13 +314,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'Condition not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -367,7 +347,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition deleted successfully',
           schema: {
             type: 'object',
@@ -380,13 +360,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'Condition not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -413,7 +393,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'All Conditions',
           schema: {
             type: 'object',
@@ -426,10 +406,10 @@ module.exports.routes = {
             },
           },
         },
-        '204': {
+        204: {
           description: 'No content',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -445,13 +425,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition created successfully',
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -479,7 +459,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Conditions found',
           schema: {
             type: 'object',
@@ -500,10 +480,10 @@ module.exports.routes = {
             },
           },
         },
-        '404': {
+        404: {
           description: 'Conditions not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -524,13 +504,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Assessment found',
         },
-        '404': {
+        404: {
           description: 'Assessment not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -546,13 +526,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Assessment created successfully',
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -581,13 +561,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Assessment created successfully',
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -615,13 +595,13 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Assessments found',
         },
-        '404': {
+        404: {
           description: 'Assessments not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -637,7 +617,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition created successfully',
           schema: {
             type: 'object',
@@ -657,11 +637,11 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -692,7 +672,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User activated successfully',
           schema: {
             type: 'object',
@@ -703,15 +683,15 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '404': {
+        404: {
           description: 'User not found',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -736,7 +716,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User deactivated successfully',
           schema: {
             type: 'object',
@@ -747,15 +727,15 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '404': {
+        404: {
           description: 'User not found',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -781,7 +761,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Condition created successfully',
           schema: {
             type: 'object',
@@ -807,11 +787,11 @@ module.exports.routes = {
             },
           },
         },
-        '404': {
+        404: {
           description: 'User or password is invalid',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -841,7 +821,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User already registered',
           schema: {
             type: 'object',
@@ -867,7 +847,7 @@ module.exports.routes = {
             },
           },
         },
-        '201': {
+        201: {
           description: 'User created successfully',
           schema: {
             type: 'object',
@@ -896,10 +876,10 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -946,7 +926,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Admin user found',
           schema: {
             type: 'object',
@@ -964,10 +944,10 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing arguments',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -982,7 +962,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Users found',
           schema: {
             type: 'object',
@@ -1002,10 +982,10 @@ module.exports.routes = {
             },
           },
         },
-        '404': {
+        404: {
           description: 'No common user has been registered',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1021,7 +1001,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Admin user found',
           schema: {
             type: 'object',
@@ -1030,13 +1010,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing arguments',
         },
-        '404': {
+        404: {
           description: 'Email not exists',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1049,7 +1029,10 @@ module.exports.routes = {
           description: 'Body content',
           properties: {
             email: { type: 'string', example: 'aa@aa.com.br' },
-            tipo: { type: 'int', example: '1: send email code; 0: send sms code' },
+            tipo: {
+              type: 'int',
+              example: '1: send email code; 0: send sms code',
+            },
           },
         },
       ],
@@ -1064,7 +1047,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Admin user found',
           schema: {
             type: 'object',
@@ -1073,16 +1056,16 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing arguments',
         },
-        '403': {
+        403: {
           description: '403 Forbidden',
         },
-        '404': {
+        404: {
           description: 'Invalid Admin',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1110,7 +1093,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '201': {
+        201: {
           description: 'Admin User updated successfully',
           schema: {
             type: 'object',
@@ -1130,13 +1113,13 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
         },
-        '404': {
+        404: {
           description: 'User and phone not found',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1163,7 +1146,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User activated successfully',
           schema: {
             type: 'object',
@@ -1174,15 +1157,15 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '404': {
+        404: {
           description: 'User not found',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -1207,7 +1190,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'User deactivated successfully',
           schema: {
             type: 'object',
@@ -1218,15 +1201,15 @@ module.exports.routes = {
             },
           },
         },
-        '400': {
+        400: {
           description: 'Missing parameters',
           type: 'string',
         },
-        '404': {
+        404: {
           description: 'User not found',
           type: 'string',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
           type: 'string',
         },
@@ -1251,7 +1234,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'All Geographic data',
           schema: {
             type: 'array',
@@ -1276,7 +1259,7 @@ module.exports.routes = {
             },
           },
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1292,7 +1275,7 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        '200': {
+        200: {
           description: 'Get geographic data by city',
           schema: {
             type: 'object',
@@ -1315,10 +1298,10 @@ module.exports.routes = {
             },
           },
         },
-        '204': {
+        204: {
           description: 'No content',
         },
-        '500': {
+        500: {
           description: 'Internal server error',
         },
       },
@@ -1333,14 +1316,4 @@ module.exports.routes = {
       ],
     },
   },
-  /***************************************************************************
-   *                                                                          *
-   * More custom routes here...                                               *
-   * (See https://sailsjs.com/config/routes for examples.)                    *
-   *                                                                          *
-   * If a request to a URL doesn't match any of the routes in this file, it   *
-   * is matched against "shadow routes" (e.g. blueprint routes).  If it does  *
-   * not match any of those, it is matched against static assets.             *
-   *                                                                          *
-   ***************************************************************************/
 };

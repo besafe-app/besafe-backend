@@ -21,6 +21,6 @@ module.exports = {
     deathRate: { type: 'number' },
     x: { type: 'string' },
     y: { type: 'string' },
-    geom: { type: 'string' }
+    geom: { type: 'string' },
   },
 };
