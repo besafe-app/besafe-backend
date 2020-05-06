@@ -41,7 +41,7 @@ module.exports = {
     deviceToken: {
       type: 'string',
       required: true,
-      field: 'device_token',
+      columnName: 'device_token',
     },
   },
 };
