@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const jwtSecret = sails.config.secrets.jwtSecret;
-const algorithm = sails.config.secrets.algorithm;
-const expiresIn = sails.config.secrets.expireToken;
+
+const { jwtSecret } = sails.config.secrets; // eslint-disable-line
+const { algorithm } = sails.config.secrets; // eslint-disable-line
 
 module.exports = {
   issue: (payload) => {
@@ -9,7 +9,5 @@ module.exports = {
     return token;
   },
 
-  verify: (token, callback) => {
-    return jwt.verify(token, jwtSecret, callback);
-  }
+  verify: (token, callback) => jwt.verify(token, jwtSecret, callback),
 };

@@ -82,6 +82,7 @@ module.exports = {
       } else {
         return res.status(400).json({ message: 'Missing arguments' });
       }
+      return res.status(400).json({ message: 'Missing arguments' });
     } catch (e) {
       console.error(e);
       return res.status(500).json(e);
@@ -132,9 +133,8 @@ module.exports = {
       }).populate('assessment');
       if (assessments.length > 0) {
         return res.status(200).json(assessments);
-      } else {
-        return res.status(404).json({ message: 'Assessments not found' });
       }
+      return res.status(404).json({ message: 'Assessments not found' });
     } catch (e) {
       console.error(e);
       return res.status(500).json(e);

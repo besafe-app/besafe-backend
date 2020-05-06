@@ -8,7 +8,7 @@
 module.exports = {
   getAll: async (req, res) => {
     try {
-      const data = await  CovidMap.find();
+      const data = await CovidMap.find();
       return res.status(200).json(data);
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -17,7 +17,7 @@ module.exports = {
   getByCity: async (req, res) => {
     try {
       const { city } = req.params;
-      const covidData = await CovidMap.findOne({ city: city });
+      const covidData = await CovidMap.findOne({ city });
       if (covidData) {
         return res.status(200).json(covidData);
       }
@@ -25,5 +25,5 @@ module.exports = {
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
-  }
+  },
 };

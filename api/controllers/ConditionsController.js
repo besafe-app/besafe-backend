@@ -10,22 +10,23 @@ module.exports = {
     const { name } = req.allParams();
     const language = req.param('language') || 'pt';
     try {
-      if(name && language){
+      if (name && language) {
         const conditionExist = await Conditions.findOne({
-          name: name,
-          language: language,
+          name,
+          language,
         });
         if (!conditionExist) {
           const conditions = await Conditions.create({
-            name: name,
-            language: language,
+            name,
+            language,
           }).fetch();
           return res.status(201).json(conditions);
         }
-        return res.status(200).json({message:'Conditions already registered'});
+        return res
+          .status(200)
+          .json({ message: 'Conditions already registered' });
       }
       return res.status(400).json({ message: 'Missing arguments' });
-      
     } catch (e) {
       console.error(e);
       return res.status(200).send(e);
@@ -35,19 +36,17 @@ module.exports = {
     const { id, name, language } = req.allParams();
     try {
       if (id) {
-        const condition = await Conditions.find({ id: id });
+        const condition = await Conditions.find({ id });
         if (condition) {
           const conditionUpdated = await Conditions.update(
-            { id: id },
-            { name: name, language: language },
+            { id },
+            { name, language },
           ).fetch();
           return res.status(200).json(conditionUpdated);
-        } else {
-          return res.status(404).json({ message: 'Condition not found' });
         }
-      } else {
-        return res.status(400).json({ message: 'Missing arguments' });
+        return res.status(404).json({ message: 'Condition not found' });
       }
+      return res.status(400).json({ message: 'Missing arguments' });
     } catch (e) {
       console.error(e);
       return res.status(500).send(e);
@@ -57,20 +56,18 @@ module.exports = {
     const { id } = req.allParams();
     try {
       if (id) {
-        const condition = await Conditions.find({ id: id });
+        const condition = await Conditions.find({ id });
         if (condition) {
           const userConditions = await UserConditions.find({ condition: id });
           if (userConditions.length) {
             await UserConditions.destroy({ condition: id }).fetch();
           }
-          const conditionDeleted = await Conditions.destroyOne({ id: id });
+          const conditionDeleted = await Conditions.destroyOne({ id });
           return res.status(200).json(conditionDeleted);
-        } else {
-          return res.status(404).json({ message: 'Condition not found' });
         }
-      } else {
-        return res.status(400).json({ message: 'Missing arguments' });
+        return res.status(404).json({ message: 'Condition not found' });
       }
+      return res.status(400).json({ message: 'Missing arguments' });
     } catch (e) {
       console.error(e);
       return res.status(500).send(e);
@@ -93,7 +90,7 @@ module.exports = {
     try {
       const userConditionsAssociation = conditions.map((condition) => ({
         user: req.session.user.id,
-        condition: condition,
+        condition,
       }));
       await UserConditions.createEach(userConditionsAssociation);
       return res.status(204).send();
@@ -109,9 +106,8 @@ module.exports = {
       }).populate('condition');
       if (conditions.length > 0) {
         return res.status(200).json(conditions);
-      } else {
-        return res.status(404).json({ message: 'Conditions not found' });
       }
+      return res.status(404).json({ message: 'Conditions not found' });
     } catch (e) {
       console.error(e);
       return res.status(500).json(e);

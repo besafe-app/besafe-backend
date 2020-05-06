@@ -1,17 +1,15 @@
 module.exports.swaggerConfig = {
   disable: false,
-  //   pathToGenerateFile: '/nirav/test/asb/xyz/',
-  //   fileName: 'swagger.json',
   defaults: {
     pathsToIgnore: ['api/v1/'],
     responses: {
-      '200': {
+      200: {
         description: 'The requested resource',
       },
-      '404': {
+      404: {
         description: 'Resource not found',
       },
-      '500': {
+      500: {
         description: 'Internal server error',
       },
     },
