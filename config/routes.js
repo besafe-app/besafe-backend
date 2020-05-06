@@ -495,7 +495,7 @@ module.exports.routes = {
     },
   },
 
-  'GET /api/v1/assesment': {
+  'GET /api/v1/assessment': {
     controller: 'AssessmentsController',
     action: 'list',
     swagger: {
@@ -506,6 +506,17 @@ module.exports.routes = {
       responses: {
         200: {
           description: 'Assessment found',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt'}
+            }
+          }
+        },
+        '204': {
+          description: 'No assessments found',
         },
         404: {
           description: 'Assessment not found',
@@ -527,7 +538,18 @@ module.exports.routes = {
       produces: ['application/json'],
       responses: {
         200: {
+          description: 'Assessments already registered!',
+        },
+        201: {
           description: 'Assessment created successfully',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              name: { type: 'string', example: 'Febre' },
+              language: { type: 'string', example: 'pt'}
+            }
+          }
         },
         400: {
           description: 'Missing parameters',
@@ -552,7 +574,7 @@ module.exports.routes = {
     },
   },
 
-  'POST /api/v1/users/assessment': {
+  'POST /api/v1/users/assessments': {
     controller: 'AssessmentsController',
     action: 'setUserAssessment',
     swagger: {
@@ -561,8 +583,8 @@ module.exports.routes = {
       consumes: ['application/json'],
       produces: ['application/json'],
       responses: {
-        200: {
-          description: 'Assessment created successfully',
+        201: {
+          description: 'Assesment register for user successfully',
         },
         400: {
           description: 'Missing parameters',
@@ -579,7 +601,10 @@ module.exports.routes = {
           type: 'object',
           description: 'Body content',
           properties: {
-            assessment: { type: 'string' },
+            assessments: { type: 'number' },
+            date: { type: 'string' },
+            lat: { type: 'string' },
+            long: { type: 'string' },
           },
         },
       ],
@@ -597,6 +622,18 @@ module.exports.routes = {
       responses: {
         200: {
           description: 'Assessments found',
+          schema: {
+            type: 'object',
+            properties: {
+              id: { type: 'int', example: 0 },
+              user: { type: 'number', example: 1 },
+              date: { type: 'string', example: '2015-03-25T12:00:00Z'},
+              value: { type: 'number', example: 0 },
+              lat: { type: 'string', example: '-19.920158' },
+              long: { type: 'string', example: '-43.921271' },
+              assessment: { type: 'number', example: 1 },
+            }
+          }
         },
         404: {
           description: 'Assessments not found',
@@ -1316,4 +1353,150 @@ module.exports.routes = {
       ],
     },
   },
+  'DELETE /api/v1/users/assessments': {
+    controller: 'AssessmentsController',
+    action: 'deleteByUser',
+    swagger: {
+      tag: ['assessment-set'],
+      summary: 'Set assessment for user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        200: {
+          description: 'User assesments deleted successfully',
+        },
+        400: {
+          description: 'Missing parameters',
+        },
+        500: {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'body',
+          name: 'data',
+          required: true,
+          type: 'object',
+          description: 'Body content',
+          properties: {
+            ids: { type: 'number' },
+          },
+        },
+      ],
+    },
+  },
+  'DELETE /api/v1/assessment/:id': {
+    controller: 'AssessmentsController',
+    action: 'delete',
+    swagger: {
+      tag: ['assessment-create'],
+      summary: 'Create assessment',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        200: {
+          description: 'Assessments deleted!',
+        },
+        400: {
+          description: 'Missing arguments',
+        },
+        404: {
+          description: 'Assessments not found',
+        },
+        500: {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'string',
+          description: 'Assesment id',
+        },
+      ],
+    },
+  },
+  'PUT /api/v1/assessment/:id': {
+    controller: 'AssessmentsController',
+    action: 'update',
+    swagger: {
+      tag: ['assessment-create'],
+      summary: 'Create assessment',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        200: {
+          description: 'Assessments updated!',
+          schema: {
+            type: 'object',
+            properties: {
+              language: { type: 'string', example: 'pt' },
+              createdAt: { type: 'int', example: 1586723387394 },
+              updatedAt: { type: 'int', example: 1586723387394 },
+              id: { type: 'int', example: 1 },
+              name: { type: 'string', example: 'Febre' },
+            }
+          }
+        },
+        400: {
+          description: 'Missing arguments',
+        },
+        404: {
+          description: 'Assessments not found',
+        },
+        500: {
+          description: 'Internal server error',
+        },
+      },
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          type: 'string',
+          description: 'Assesment id',
+        },
+      ],
+    },
+  },
+  'GET /api/v1/users/assessments/check': {
+    controller: 'AssessmentsController',
+    action: 'check',
+    swagger: {
+      tag: ['assessment-set'],
+      summary: 'Set assessment for user',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      responses: {
+        200: {
+          description: 'Check user status',
+          schema: {
+            type: 'object',
+            properties: {
+              message: { type: 'boolean', example: true },
+            }
+          }
+        },
+        400: {
+          description: 'Missing parameters',
+        },
+        500: {
+          description: 'Internal server error',
+        },
+      },
+    },
+  },
+  /***************************************************************************
+   *                                                                          *
+   * More custom routes here...                                               *
+   * (See https://sailsjs.com/config/routes for examples.)                    *
+   *                                                                          *
+   * If a request to a URL doesn't match any of the routes in this file, it   *
+   * is matched against "shadow routes" (e.g. blueprint routes).  If it does  *
+   * not match any of those, it is matched against static assets.             *
+   *                                                                          *
+   ***************************************************************************/
 };

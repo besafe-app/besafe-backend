@@ -15,7 +15,11 @@ module.exports.policies = {
     '*': true,
   },
   AssessmentsController: {
-    '*': true,
+    setUserAssessment: 'isAuthorized',
+    getByUser: 'isAuthorized',
+    deleteByUser: 'isAuthorized',
+    check: 'isAuthorized',
+    '*': true
   },
   GeoController: {
     '*': true,
