@@ -12,7 +12,7 @@ module.exports = {
       if (assesments.length > 0) {
         return res.status(200).json(assesments);
       } else {
-        return res.status(204).json({message:'No assessments found'});
+        return res.status(204).json({ message: 'No assessments found' });
       }
     } catch (e) {
       console.error(e);
@@ -24,15 +24,15 @@ module.exports = {
     const language = req.param('language') || 'pt';
     try {
       if (name && language) {
-        const assesmentsExists =await Assessments.findOne({name, language});
-        if(!assesmentsExists){
+        const assesmentsExists = await Assessments.findOne({ name, language });
+        if (!assesmentsExists) {
           const assesments = await Assessments.create({
             name: name,
             language: language,
           }).fetch();
           return res.status(201).json(assesments);
         }
-        return res.status(200).json({message: 'Assessments already registered!'});        
+        return res.status(200).json({ message: 'Assessments already registered!' });
       } else {
         return res.status(400).json({ message: 'Missing arguments' });
       }
@@ -92,7 +92,7 @@ module.exports = {
     const { assessments, date, lat, long } = req.allParams();
     const value = req.param('value') || 0;
     try {
-      if( (assessments.length > 1) && date && lat && long){
+      if (assessments.length > 1 && date && lat && long) {
         let newDate = new Date(date);
         const assessmentsAssociation = assessments.map((assessment) => ({
           user: req.session.user.id,
@@ -100,12 +100,11 @@ module.exports = {
           date: newDate,
           value: value ? value : 0,
           lat: lat,
-          long: long
+          long: long,
         }));
         await UserAssessments.createEach(assessmentsAssociation);
-        return res.status(201).json({message: 'Assesments register for user successfully'});
-      }
-      else if((assessments.length === 1) && date && lat && long){
+        return res.status(201).json({ message: 'Assesments register for user successfully' });
+      } else if (assessments.length === 1 && date && lat && long) {
         let newDate = new Date(date);
         await UserAssessments.create({
           user: req.session.user.id,
@@ -113,14 +112,13 @@ module.exports = {
           date: newDate,
           value: value ? value : 0,
           lat: lat,
-          long: long
+          long: long,
         }).fetch();
 
-        return res.status(201).json({message: 'Assesments register for user successfully'});
-      }else{
-        return res.status(400).json({message: 'Missing Arguments'});
+        return res.status(201).json({ message: 'Assesments register for user successfully' });
+      } else {
+        return res.status(400).json({ message: 'Missing Arguments' });
       }
-      
     } catch (e) {
       console.error(e);
       return res.status(500).json(e);
@@ -141,49 +139,86 @@ module.exports = {
     }
   },
   deleteByUser: async (req, res) => {
-    try{
+    try {
       const { ids } = req.allParams();
-      
-      if(ids){
+
+      if (ids) {
         const user = req.session.user.id;
         const newIds = typeof ids === 'string' ? parseInt(ids) : ids;
-        
-        if(typeof newIds === 'number'){
-          await UserAssessments.destroyOne({id: newIds, user: user});
-          return res.status(200).json({message: 'User assesments deleted successfully'});
-        }
-        else if((typeof newIds === 'object') && (newIds.length > 1)){
+
+        if (typeof newIds === 'number') {
+          await UserAssessments.destroyOne({ id: newIds, user: user });
+          return res.status(200).json({ message: 'User assesments deleted successfully' });
+        } else if (typeof newIds === 'object' && newIds.length > 1) {
           await UserAssessments.destroy({
             id: { in: newIds },
-            user: user
+            user: user,
           });
-          return res.status(200).json({message: 'User assesments deleted successfully'});
+          return res.status(200).json({ message: 'User assesments deleted successfully' });
         }
       }
-      return res.status(400).json({message: 'Missing Arguments'});
-    }catch(e){
+      return res.status(400).json({ message: 'Missing Arguments' });
+    } catch (e) {
       console.error(e);
       return res.status(500).json(e);
     }
   },
   check: async (req, res) => {
-    try{
-      const userAssessments =  await UserAssessments.find({
+    try {
+      const userAssessments = await UserAssessments.find({
         where: { user: req.session.user.id },
-        sort: 'createdAt ASC'
+        sort: 'createdAt ASC',
       });
-      if(userAssessments.length){
+      if (userAssessments.length) {
         const date = new Date(userAssessments[0].date);
         const today = new Date();
-        if(date.getDate() >= today.getDate()){
+        if (date.getDate() >= today.getDate()) {
           return res.status(200).json({ message: true });
         }
         return res.status(200).json({ message: false });
       }
-      return res.status(404).json({ message: 'User has not registered any updates' });  
-    }catch(e){
+      return res.status(404).json({ message: 'User has not registered any updates' });
+    } catch (e) {
       console.error(e);
       return res.status(500).json(e);
     }
-  }
+  },
+  map: async (req, res) => {
+    try {
+      const { age = 'every', gender = 'every' } = req.allParams();
+
+      const where = {};
+
+      if (age === 'every') {
+        where.startAge = 0;
+        where.endAge = 99;
+      } else {
+        [where.startAge, where.endAge] = age.split('-');
+      }
+
+      if (gender === 'every') {
+        where.gender = '';
+      } else {
+        where.gender = gender;
+      }
+
+      const response = await Users.getDatastore().sendNativeQuery(`
+        SELECT UA.*
+        FROM USERASSESSMENT UA
+        INNER JOIN USERS U ON U.ID = UA."USER"
+        WHERE
+          U.GENDER LIKE '%${where.gender}%' OR
+          (DATE_PART('year', NOW()) - DATE_PART('year', U.BIRTHDATE)) BETWEEN ${where.startAge} AND ${where.endAge}
+      `);
+
+      if (response.length === 0) {
+        return res.status(204).end();
+      }
+
+      return res.status(200).json();
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json(error);
+    }
+  },
 };
