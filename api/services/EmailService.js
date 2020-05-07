@@ -1,6 +1,5 @@
 module.exports = {
   sendCode(obj) {
-    // eslint-disable-next-line
     sails.hooks.email.send(
       'codeEmail',
       {
@@ -22,7 +21,6 @@ module.exports = {
     );
   },
   sendPass(obj) {
-    // eslint-disable-next-line
     sails.hooks.email.send(
       'passEmail',
       {

@@ -511,11 +511,11 @@ module.exports.routes = {
             properties: {
               id: { type: 'int', example: 0 },
               name: { type: 'string', example: 'Febre' },
-              language: { type: 'string', example: 'pt'}
-            }
-          }
+              language: { type: 'string', example: 'pt' },
+            },
+          },
         },
-        '204': {
+        204: {
           description: 'No assessments found',
         },
         404: {
@@ -547,9 +547,9 @@ module.exports.routes = {
             properties: {
               id: { type: 'int', example: 0 },
               name: { type: 'string', example: 'Febre' },
-              language: { type: 'string', example: 'pt'}
-            }
-          }
+              language: { type: 'string', example: 'pt' },
+            },
+          },
         },
         400: {
           description: 'Missing parameters',
@@ -627,13 +627,13 @@ module.exports.routes = {
             properties: {
               id: { type: 'int', example: 0 },
               user: { type: 'number', example: 1 },
-              date: { type: 'string', example: '2015-03-25T12:00:00Z'},
+              date: { type: 'string', example: '2015-03-25T12:00:00Z' },
               value: { type: 'number', example: 0 },
               lat: { type: 'string', example: '-19.920158' },
               long: { type: 'string', example: '-43.921271' },
               assessment: { type: 'number', example: 1 },
-            }
-          }
+            },
+          },
         },
         404: {
           description: 'Assessments not found',
@@ -1438,8 +1438,8 @@ module.exports.routes = {
               updatedAt: { type: 'int', example: 1586723387394 },
               id: { type: 'int', example: 1 },
               name: { type: 'string', example: 'Febre' },
-            }
-          }
+            },
+          },
         },
         400: {
           description: 'Missing arguments',
@@ -1477,8 +1477,8 @@ module.exports.routes = {
             type: 'object',
             properties: {
               message: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
         400: {
           description: 'Missing parameters',
@@ -1489,7 +1489,7 @@ module.exports.routes = {
       },
     },
   },
-  /***************************************************************************
+  /** *************************************************************************
    *                                                                          *
    * More custom routes here...                                               *
    * (See https://sailsjs.com/config/routes for examples.)                    *
@@ -1498,5 +1498,5 @@ module.exports.routes = {
    * is matched against "shadow routes" (e.g. blueprint routes).  If it does  *
    * not match any of those, it is matched against static assets.             *
    *                                                                          *
-   ***************************************************************************/
+   ************************************************************************** */
 };

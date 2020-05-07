@@ -11,9 +11,8 @@ module.exports = {
       const assesments = await Assessments.find({}).sort('name');
       if (assesments.length > 0) {
         return res.status(200).json(assesments);
-      } else {
-        return res.status(204).json({ message: 'No assessments found' });
       }
+      return res.status(204).json({ message: 'No assessments found' });
     } catch (e) {
       console.error(e);
       return res.status(500).json(e);
@@ -27,15 +26,14 @@ module.exports = {
         const assesmentsExists = await Assessments.findOne({ name, language });
         if (!assesmentsExists) {
           const assesments = await Assessments.create({
-            name: name,
-            language: language,
+            name,
+            language,
           }).fetch();
           return res.status(201).json(assesments);
         }
         return res.status(200).json({ message: 'Assessments already registered!' });
-      } else {
-        return res.status(400).json({ message: 'Missing arguments' });
       }
+      return res.status(400).json({ message: 'Missing arguments' });
     } catch (e) {
       console.error(e);
       return res.status(500).json(e);
@@ -46,19 +44,14 @@ module.exports = {
     const language = req.param('language') || 'pt';
     try {
       if (id && name) {
-        const assessments = await Assessments.find({ id: id });
+        const assessments = await Assessments.find({ id });
         if (assessments) {
-          const assessmentUpdated = await Assessments.update(
-            { id: id },
-            { name: name, language: language },
-          ).fetch();
+          const assessmentUpdated = await Assessments.update({ id }, { name, language }).fetch();
           return res.status(200).json(assessmentUpdated);
-        } else {
-          return res.status(404).json({ message: 'Assessments not found' });
         }
-      } else {
-        return res.status(400).json({ message: 'Missing arguments' });
+        return res.status(404).json({ message: 'Assessments not found' });
       }
+      return res.status(400).json({ message: 'Missing arguments' });
     } catch (e) {
       console.error(e);
       return res.status(500).json(e);
@@ -68,19 +61,16 @@ module.exports = {
     const { id } = req.allParams();
     try {
       if (id) {
-        const assessments = await Assessments.find({ id: id });
+        const assessments = await Assessments.find({ id });
         if (assessments) {
           const userAssessments = await UserAssessments.find({ assessment: id });
           if (userAssessments.length) {
             await UserAssessments.destroy({ assessment: id }).fetch();
           }
-          const assessmentDeleted = await Assessments.destroyOne({ id: id });
+          const assessmentDeleted = await Assessments.destroyOne({ id });
           return res.status(200).json(assessmentDeleted);
-        } else {
-          return res.status(404).json({ message: 'Assessments not found' });
         }
-      } else {
-        return res.status(400).json({ message: 'Missing arguments' });
+        return res.status(404).json({ message: 'Assessments not found' });
       }
       return res.status(400).json({ message: 'Missing arguments' });
     } catch (e) {
@@ -93,32 +83,32 @@ module.exports = {
     const value = req.param('value') || 0;
     try {
       if (assessments.length > 1 && date && lat && long) {
-        let newDate = new Date(date);
+        const newDate = new Date(date);
         const assessmentsAssociation = assessments.map((assessment) => ({
           user: req.session.user.id,
-          assessment: assessment,
+          assessment,
           date: newDate,
-          value: value ? value : 0,
-          lat: lat,
-          long: long,
+          value: value || 0,
+          lat,
+          long,
         }));
         await UserAssessments.createEach(assessmentsAssociation);
         return res.status(201).json({ message: 'Assesments register for user successfully' });
-      } else if (assessments.length === 1 && date && lat && long) {
-        let newDate = new Date(date);
+      }
+      if (assessments.length === 1 && date && lat && long) {
+        const newDate = new Date(date);
         await UserAssessments.create({
           user: req.session.user.id,
           assessment: assessments,
           date: newDate,
-          value: value ? value : 0,
-          lat: lat,
-          long: long,
+          value: value || 0,
+          lat,
+          long,
         }).fetch();
 
         return res.status(201).json({ message: 'Assesments register for user successfully' });
-      } else {
-        return res.status(400).json({ message: 'Missing Arguments' });
       }
+      return res.status(400).json({ message: 'Missing Arguments' });
     } catch (e) {
       console.error(e);
       return res.status(500).json(e);
@@ -144,15 +134,16 @@ module.exports = {
 
       if (ids) {
         const user = req.session.user.id;
-        const newIds = typeof ids === 'string' ? parseInt(ids) : ids;
+        const newIds = typeof ids === 'string' ? parseInt(ids, 10) : ids;
 
         if (typeof newIds === 'number') {
-          await UserAssessments.destroyOne({ id: newIds, user: user });
+          await UserAssessments.destroyOne({ id: newIds, user });
           return res.status(200).json({ message: 'User assesments deleted successfully' });
-        } else if (typeof newIds === 'object' && newIds.length > 1) {
+        }
+        if (typeof newIds === 'object' && newIds.length > 1) {
           await UserAssessments.destroy({
             id: { in: newIds },
-            user: user,
+            user,
           });
           return res.status(200).json({ message: 'User assesments deleted successfully' });
         }

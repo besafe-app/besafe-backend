@@ -11,8 +11,6 @@ module.exports = {
       const users = await Users.find();
       if (users.length) {
         return res.status(200).json(users);
-      } else {
-        return res.status(404).json({ message: 'No common user has been registered' });
       }
       return res.status(404).json({ message: 'No common user has been registered' });
     } catch (error) {
