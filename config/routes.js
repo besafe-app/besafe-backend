@@ -1456,6 +1456,18 @@ module.exports.routes = {
       summary: 'Return a coodinates list accord filter passed by client',
       consumes: ['application/json'],
       produces: ['application/json'],
+      parameters: [
+        {
+          in: 'query',
+          name: 'age',
+          type: 'string',
+        },
+        {
+          in: 'query',
+          name: 'gender',
+          type: 'string',
+        },
+      ],
       responses: {
         200: {
           description: 'List of coordinates',
