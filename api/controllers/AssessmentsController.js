@@ -193,20 +193,20 @@ module.exports = {
         where.gender = gender;
       }
 
-      const response = await Users.getDatastore().sendNativeQuery(`
-        SELECT UA.*
+      const { rows } = await Users.getDatastore().sendNativeQuery(`
+        SELECT UA.lat, UA.long
         FROM USERASSESSMENT UA
-        INNER JOIN USERS U ON U.ID = UA."USER"
+        INNER JOIN USERS U ON U.id = UA."user"
         WHERE
           U.GENDER LIKE '%${where.gender}%' OR
           (DATE_PART('year', NOW()) - DATE_PART('year', U.BIRTHDATE)) BETWEEN ${where.startAge} AND ${where.endAge}
       `);
 
-      if (response.length === 0) {
+      if (rows.length === 0) {
         return res.status(204).end();
       }
 
-      return res.status(200).json();
+      return res.status(200).json(response);
     } catch (error) {
       console.error(error);
       return res.status(500).json(error);
