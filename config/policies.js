@@ -24,4 +24,11 @@ module.exports.policies = {
   GeoController: {
     '*': true,
   },
+  AdminUsersController:{
+    auth: true,
+    validateCode: true,
+    recoveryGreenCard: true,
+    create: true,
+    '*': 'isAdmin'
+  },
 };
