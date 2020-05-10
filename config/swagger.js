@@ -31,7 +31,9 @@ module.exports.swaggerConfig = {
       },
       version: '1.0.0',
     },
-    host: 'besafe-backend.herokuapp.com',
+    host: (process.env.NODE_ENV = 'development'
+      ? 'localhost:1337'
+      : 'besafe-backend.herokuapp.com'),
     basePath: '/',
     schemes: ['http', 'https'],
     externalDocs: {
@@ -89,16 +91,14 @@ module.exports.swaggerConfig = {
         name: 'select',
         required: false,
         type: 'string',
-        description:
-          'This helps with what to return for the user and its "," delimited',
+        description: 'This helps with what to return for the user and its "," delimited',
       },
       TokenHeaderParam: {
         in: 'header',
         name: 'token',
         required: false,
         type: 'string',
-        description:
-          'Incase we want to send header information along our request',
+        description: 'Incase we want to send header information along our request',
       },
       IDPathParam: {
         in: 'path',
@@ -112,8 +112,7 @@ module.exports.swaggerConfig = {
         name: 'perPage',
         required: false,
         type: 'integer',
-        description:
-          'This helps with pagination and when the limit is known for pagify',
+        description: 'This helps with pagination and when the limit is known for pagify',
       },
     },
     paths: {},

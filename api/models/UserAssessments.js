@@ -15,28 +15,28 @@ module.exports = {
       model: 'users',
       required: true,
     },
-    date: { 
-      type: 'ref', 
+    date: {
+      type: 'ref',
       columnType: 'datetime',
       required: true,
-      custom: function (dateAttribute){
-        return (_.isDate(dateAttribute));
-      }
+      custom(dateAttribute) {
+        return _.isDate(dateAttribute);
+      },
     },
     value: {
       type: 'number',
       defaultsTo: 0,
-      custom: function (value){
-        return (value >= 0);
-      }
+      custom(value) {
+        return value >= 0;
+      },
     },
     lat: {
       type: 'number',
-      required: true
+      required: true,
     },
     long: {
       type: 'number',
-      required: true
+      required: true,
     },
   },
 };

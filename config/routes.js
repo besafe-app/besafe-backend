@@ -511,11 +511,11 @@ module.exports.routes = {
             properties: {
               id: { type: 'int', example: 0 },
               name: { type: 'string', example: 'Febre' },
-              language: { type: 'string', example: 'pt'}
-            }
-          }
+              language: { type: 'string', example: 'pt' },
+            },
+          },
         },
-        '204': {
+        204: {
           description: 'No assessments found',
         },
         404: {
@@ -547,9 +547,9 @@ module.exports.routes = {
             properties: {
               id: { type: 'int', example: 0 },
               name: { type: 'string', example: 'Febre' },
-              language: { type: 'string', example: 'pt'}
-            }
-          }
+              language: { type: 'string', example: 'pt' },
+            },
+          },
         },
         400: {
           description: 'Missing parameters',
@@ -627,13 +627,13 @@ module.exports.routes = {
             properties: {
               id: { type: 'int', example: 0 },
               user: { type: 'number', example: 1 },
-              date: { type: 'string', example: '2015-03-25T12:00:00Z'},
+              date: { type: 'string', example: '2015-03-25T12:00:00Z' },
               value: { type: 'number', example: 0 },
               lat: { type: 'string', example: '-19.920158' },
               long: { type: 'string', example: '-43.921271' },
               assessment: { type: 'number', example: 1 },
-            }
-          }
+            },
+          },
         },
         404: {
           description: 'Assessments not found',
@@ -1262,47 +1262,6 @@ module.exports.routes = {
       ],
     },
   },
-  'GET /api/v1/web/map': {
-    controller: 'GeoController',
-    action: 'getAll',
-    swagger: {
-      tag: ['get all points'],
-      summary: 'Get all geographic data of covid',
-      consumes: ['application/json'],
-      produces: ['application/json'],
-      responses: {
-        200: {
-          description: 'All Geographic data',
-          schema: {
-            type: 'array',
-            items: {
-              properties: {
-                status: { type: 'string' },
-                score: { type: 'number' },
-                date: { type: 'string' },
-                state: { type: 'string' },
-                city: { type: 'string' },
-                placeType: { type: 'string' },
-                confirmed: { type: 'number' },
-                deaths: { type: 'number' },
-                isLast: { type: 'boolean' },
-                ibgeCode: { type: 'number' },
-                confRate: { type: 'number' },
-                deathRate: { type: 'number' },
-                x: { type: 'string' },
-                y: { type: 'string' },
-                geom: { type: 'string' },
-              },
-            },
-          },
-        },
-        500: {
-          description: 'Internal server error',
-        },
-      },
-    },
-  },
-
   'GET /api/v1/web/map/:city': {
     controller: 'GeoController',
     action: 'getByCity',
@@ -1438,8 +1397,8 @@ module.exports.routes = {
               updatedAt: { type: 'int', example: 1586723387394 },
               id: { type: 'int', example: 1 },
               name: { type: 'string', example: 'Febre' },
-            }
-          }
+            },
+          },
         },
         400: {
           description: 'Missing arguments',
@@ -1477,8 +1436,8 @@ module.exports.routes = {
             type: 'object',
             properties: {
               message: { type: 'boolean', example: true },
-            }
-          }
+            },
+          },
         },
         400: {
           description: 'Missing parameters',
@@ -1489,14 +1448,47 @@ module.exports.routes = {
       },
     },
   },
-  /***************************************************************************
-   *                                                                          *
-   * More custom routes here...                                               *
-   * (See https://sailsjs.com/config/routes for examples.)                    *
-   *                                                                          *
-   * If a request to a URL doesn't match any of the routes in this file, it   *
-   * is matched against "shadow routes" (e.g. blueprint routes).  If it does  *
-   * not match any of those, it is matched against static assets.             *
-   *                                                                          *
-   ***************************************************************************/
+  'GET /api/v1/web/map': {
+    controller: 'AssessmentsController',
+    action: 'map',
+    swagger: {
+      tag: ['assessment-map'],
+      summary: 'Return a coodinates list accord filter passed by client',
+      consumes: ['application/json'],
+      produces: ['application/json'],
+      parameters: [
+        {
+          in: 'query',
+          name: 'age',
+          type: 'string',
+        },
+        {
+          in: 'query',
+          name: 'gender',
+          type: 'string',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'List of coordinates',
+          schema: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                lat: {
+                  type: 'number',
+                  example: -38.5,
+                },
+                long: {
+                  type: 'number',
+                  example: 100.0,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 };
