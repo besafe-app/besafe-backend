@@ -15,6 +15,7 @@
   "rules": {
     "no-console": ["error", { "allow": ["error", "info"] }],
     "no-undef": "off",
-    "object-curly-newline": ["error", { "multiline": true, "consistent": true }]
+    "object-curly-newline": ["error", { "multiline": true, "consistent": true }],
+    "no-constant-condition": "off"
   }
 }

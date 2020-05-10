@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const { jwtSecret } = sails.config.secrets; // eslint-disable-line
-const { algorithm } = sails.config.secrets; // eslint-disable-line
+const { jwtSecret } = sails.config.secrets;
+const { algorithm } = sails.config.secrets;
 
 module.exports = {
   issue: (payload) => {

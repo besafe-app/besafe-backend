@@ -19,16 +19,17 @@ module.exports.policies = {
     getByUser: 'isAuthorized',
     deleteByUser: 'isAuthorized',
     check: 'isAuthorized',
-    '*': true
+    map: 'isAuthorized',
+    '*': true,
   },
   GeoController: {
     '*': true,
   },
-  AdminUsersController:{
+  AdminUsersController: {
     auth: true,
     validateCode: true,
     recoveryGreenCard: true,
     create: true,
-    '*': 'isAdmin'
+    '*': 'isAdmin',
   },
 };
