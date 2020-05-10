@@ -17,7 +17,7 @@ module.exports = {
   security: {
     cors: {
       allRoutes: true,
-      allowOrigins: '*',
+      allowOrigins: 'http://localhost:3000,https://besafe-web.herokuapp.com',
       allowCredentials: false,
     },
   },
