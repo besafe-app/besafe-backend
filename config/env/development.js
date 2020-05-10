@@ -19,6 +19,7 @@ module.exports = {
       allRoutes: true,
       allowOrigins: 'http://localhost:3000,https://besafe-web.herokuapp.com',
       allowCredentials: false,
+      allowRequestHeaders: 'access-token',
     },
   },
   session: {
